@@ -1,0 +1,86 @@
+@import '../../../static/less/_base.less';
+page {
+    .container {
+        width: 100%;
+        height: 100%;
+    }
+    .main {
+        width: 100%;
+        height: 100%;
+        font-size: 28rpx;
+    }
+}
+.exchange-goods-main {
+    width: 100%;
+    padding: 0 40rpx 140rpx 40rpx;
+    box-sizing: border-box;
+    display: table;
+}
+.order-goods-ul {
+    width: 100%;
+    .order-goods-li {
+        width: 100%;
+        border-top: 1px solid @dividerColor;
+        .goods-school-info {
+            width: 100%;
+            font-weight: bold;
+            font-size: 26rpx;
+            padding: 32rpx 24rpx;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            .goods-school-icon {
+                width: 24rpx;
+                height: 24rpx;
+                margin-right: 8rpx;
+            }
+        }
+        .goods-li-main {
+            width: 100%;
+            .goods-li-item {
+                width: 100%;
+                padding: 0 24rpx;
+                box-sizing: border-box;
+                .goods-li-item-main {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    .goods-checked {
+                        margin-right: 16rpx;
+                        .van-checkbox__icon--checked {
+                            background-color: @themeColor;
+                            border-color: @themeColor;
+                        }
+                    }
+                    .goods-components {
+                        flex: 1;
+                    }
+                }
+                .exchange-goods-select-ul {
+                    width: 100%;
+                    border-top: 1px solid @dividerColor;
+                    box-sizing: border-box;
+                    .ec-goods-select-item {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: row;
+                        align-items: center;
+                        padding: 24rpx 0;
+                        .exchage-goods-picker {
+                            display: flex;
+                            align-items: center;
+                            flex-direction: row;
+                            flex: 1;
+                            margin-left: 24rpx;
+                            justify-content: flex-end;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &> view:first-child {
+        border-top: none;
+    }
+}

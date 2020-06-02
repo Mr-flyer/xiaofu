@@ -1,0 +1,75 @@
+<!-- pages/goods/goodsDetails/index.wxml -->
+<!-- 顶部导航栏 -->
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}" />
+<view class="container">
+  <view class="header">
+    <view class="swiper_wrap">
+      <swiper class="swiper_goods" bind:animationfinish="hangSwiperEnd">
+        <block wx:for="{{images}}" wx:key="*this">
+          <swiper-item>
+          <image src="{{item}}" mode="aspectFill"/>
+            <!-- <view class="swiper-item">
+            </view> -->
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="swiper_dots">
+        <text>{{swiperSeq}}</text>
+        |
+        <text>{{images.length}}</text>
+      </view>
+    </view>
+    <view class="goods_info">
+      <view class="goods_title">
+        <view>{{name}}</view>
+        <!-- <van-count-down use-slot time="{{ time }}" bind:change="onChangeTimeDown">
+          <text class="item_time">{{ timeData.hours }}</text>
+          <text class="item_time">{{ timeData.minutes }}</text>
+          <text class="item_time">{{ timeData.seconds }}</text>
+        </van-count-down> -->
+      </view>
+      <view class="goods_price">
+        <view class="price_new">
+          ￥
+          <text>{{price}}</text>
+        </view>
+        <!-- <view class="price_old">￥268.00-398.00</view> -->
+      </view>
+    </view>
+  </view>
+  <view class="section goods_types">
+    <van-field label="选择" value="{{selectTxt}}" title-width="90rpx" readonly is-link clickable bind:tap="hangActionSheetShow" />
+  </view>
+  <view class="section goods_details">
+    <view class=""> </view>
+  </view>
+  <van-goods-action custom-class="goods_action">
+    <van-goods-action-button color="#3EA9C5" size="large" text="加入购物车" bind:tap="addShopCart"/>
+    <van-goods-action-button color="#2F9BCA" size="large" text="立即购买" bind:click="gotoOrder" />
+  </van-goods-action>
+
+  <!-- 上拉窗 == 选择规格 -->
+  <van-action-sheet class="sheet_wrap" show="{{ showactionSheet }}" close-on-click-overlay title="选择规格" bind:close="hangActionSheetClose">
+    <view class="inner">
+      <view wx:for="{{specs_list}}" wx:key="index" class="type_item">
+        <!-- 标题 -->
+        <view class="type_title">{{item.name}}</view>
+        <!-- 单选 -->
+        <van-radio-group class="type_options" value="{{ item.val }}" data-idx="{{index}}" bind:change="onChangeRadio">
+          <van-radio wx:for="{{item.specs_info}}" wx:for-index="idx" wx:for-item="val" use-icon-slot name="{{val.specs_info_id}}">
+            <van-button slot="icon" custom-class="type_options_btn {{item.val == val.specs_info_id ? 'active' : ''}}">
+              {{val.name}}
+            </van-button>
+          </van-radio>
+        </van-radio-group>
+      </view>
+      <view class="type_item">
+        <view class="type_title">{{item.name}}</view>
+        <van-stepper value="{{ 1 }}" max="{{stock}}" bind:change="onChangeStepper" />
+      </view>
+      <view class="btncar_wrap">
+        <van-button size="large" type="info" round block bind:click="addShopCart">加入购物车</van-button>
+      </view>
+    </view>
+  </van-action-sheet>
+</view>

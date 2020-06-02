@@ -1,0 +1,51 @@
+<!-- 顶部导航栏 -->
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}"/>
+<view class="container">
+    <scroll-view class="main" scroll-y enable-flex>
+        <view class="exchange-goods-main">
+            <view class="white-radius-bg">
+                <order-address bind:tap="changeAddress" isArrow="true"></order-address>
+            </view>
+            <view class="order-goods-ul white-radius-bg"  wx:for="{{2}}" wx:key="this">
+                <view class="order-goods-li" wx:for="{{1}}" wx:key="this">
+                    <view class="goods-school-info">
+                        <image class="goods-school-icon" src="../../../static/images/order/school-icon.png"/><text class="goods-school-text">南京师范大学附属中学</text>
+                    </view>
+                    <view class="goods-li-main">
+                        <view class="goods-li-item" wx:for="{{1}}" wx:key="this">
+                            <view class="goods-li-item-main">
+                                <view class="goods-checked"><van-checkbox value="{{ checked }}" icon-size="16px" bind:change="onChange"></van-checkbox></view>
+                                <order-goods class="goods-components"></order-goods>
+                            </view>
+                            <view class="exchange-goods-select-ul">
+                                <view class="ec-goods-select-item" bind:tap="onOpenCause"><text>换货原因</text><view class="exchage-goods-picker"><text>尺码不合尺码不合尺码不合尺码不合尺码不合尺码不合</text><van-icon name="arrow" /></view></view>
+                                <view class="ec-goods-select-item">
+                                    <text>换货数量</text>
+                                    <van-stepper value="{{ 1 }}" bind:change="onChangeNumber" />
+                                </view>
+                                <view class="ec-goods-select-item"><text>换货详情</text><view class="exchage-goods-picker"><text>尺码不合</text><van-icon name="arrow" /></view></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <view class="bottom-btn">
+        <view bind:tap="submit" class="large-btn">提交</view>
+    </view>
+    <van-popup
+        bind:close="onCloseCause"
+        show="{{ showCause }}"
+        position="bottom"
+        custom-style="height: 45%;"
+    >
+        <van-picker
+            show-toolbar
+            title="换货原因"
+            bind:cancel="onCloseCause"
+            columns="{{ causeList }}" 
+            bind:confirm="onConfirmCause" 
+        />
+    </van-popup>
+</view>

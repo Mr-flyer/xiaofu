@@ -1,0 +1,149 @@
+@import '../../../static/less/_base.less'; // 基础样式
+page {
+  --goods-action-button-height: 100rpx;
+  --goods-action-button-border-radius: 50rpx;
+  .goods_action {
+    background-color: transparent;
+    padding-left: 40rpx;
+    padding-right: 40rpx;
+    margin-bottom: 20rpx;
+  }
+}
+.swiper_wrap {
+  position: relative;
+  
+  .swiper_dots {
+    position: absolute;
+    bottom: 32rpx;right: 38rpx;
+    text-align: center;
+    font-size: 24rpx;
+    color: #fff;
+    min-width:98rpx;
+    line-height:32rpx;
+    padding: 0 14rpx;
+    background:rgba(13,13,13,.3);
+    border-radius:16rpx;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+}
+.swiper_goods {
+  height: 750rpx;
+  background-color: antiquewhite;
+  image {
+    width: 100%;
+    height: 100%;
+  }
+  // 指示点容器位置
+  // .wx-swiper-dots {
+  //   // 指示点最外层容器 --- 用于调整位置
+  //   left: initial;
+  //   transform: translateX(0);
+  //   right: 32rpx;
+  //   bottom: 30rpx;
+
+  //   // 包裹指示点的直接父容器
+  //   // &.wx-swiper-dots-horizontal {
+  //   // }
+  // }
+  // // 指示点 == 所有
+  // .wx-swiper-dot {
+  //   background-color: blue;
+  // }
+  // // 指示点 == 当前激活项
+  // .wx-swiper-dot-active {
+  //   background-color: red;
+  // }
+}
+
+.header {
+  background-color: #fff;
+  .goods_title {
+    color: #333;
+    font-size: 34rpx;
+    font-weight: bold;
+    display: flex;
+  }
+  .goods_info {
+    padding: 30rpx 40rpx 40rpx;
+  }
+  .goods_price {
+    line-height: 1;
+    font-size: 40rpx;
+    display: flex;
+    align-items: flex-end;
+  } 
+  .price_new {
+    text {
+      font-weight: bold;
+    }
+  }
+  .price_old {
+    padding-left: 20rpx;
+    font-size: 26rpx;
+    color: #999;
+    text-decoration: line-through;
+  }
+  .item_time {
+    display: inline-block;
+    width: 22px;
+    margin-right: 5px;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    background-color: #FF6866;
+    border-radius: 2px;
+  }
+}
+
+.section {
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+// 上拉窗
+.sheet_wrap {
+  max-height: 80vh;
+  .btncar_wrap {
+    padding: 40rpx;
+  }
+}
+
+.type_item {
+  padding: 0 40rpx;
+  .type_title {
+    font-size: 34rpx;
+    font-weight: bold;
+    color: #333;
+    padding-top: 40rpx;
+  }
+  // 单选btn按钮组容器
+  .type_options {
+    display: flex;
+    flex-wrap: wrap;
+    .type_options_btn {
+      margin-right: 20rpx;
+      margin-top: 30rpx;
+    }
+    van-radio:nth-of-type(4n) { // 只剔除每行（4个）末尾 单选btn 的margin
+      .type_options_btn {
+        margin-right: 0;
+      }
+    }
+  }
+  // 单选btn 
+  .type_options_btn {
+    width: 150rpx;
+    height: 80rpx;
+    border-radius: 10rpx;
+    color: #333;
+    border: 1px solid #333;
+    font-size: 26rpx;
+    box-sizing: border-box;
+    &.active {
+      font-weight: bold;
+      color: @themeColor;
+      background-color: fade(@themeColor, 20%);
+      border: none;
+    }
+  }
+}

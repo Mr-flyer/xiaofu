@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
+    "van-overlay": "/miniprogram_npm/@vant/weapp/overlay/index",
+    "van-datetime-picker": "/miniprogram_npm/@vant/weapp/datetime-picker/index",
+    "van-radio-group": "/miniprogram_npm/@vant/weapp/radio-group/index",
+    "van-radio": "/miniprogram_npm/@vant/weapp/radio/index",
+    "van-field": "/miniprogram_npm/@vant/weapp/field/index"
+  }
+}

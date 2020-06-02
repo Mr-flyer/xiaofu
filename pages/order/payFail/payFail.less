@@ -1,0 +1,49 @@
+@import '../../../static/less/_base.less';
+page {
+    .container {
+        width: 100%;
+        height: 100%;
+    }
+    .main {
+        width: 100%;
+        height: 100%;
+    }
+}
+.success-main {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 0 60rpx;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .success-icon {
+        width: 140rpx;
+        height: 140rpx;
+        margin-top: 200rpx;
+    }
+    .success-text {
+        margin: 50rpx 0 90rpx 0;
+        font-size: 30rpx;
+        font-weight: bold;
+    }
+    .success-tips {
+        margin-bottom: 178rpx;
+        font-size: 24rpx;
+        color: @timeColor;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 40rpx;
+    }
+    .success-btns {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        .suc-left-btn {
+            margin-right: 32rpx;
+        }
+    }
+}

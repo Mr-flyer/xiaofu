@@ -1,0 +1,10 @@
+<view class="order-address">
+  <view class="address-left">
+      <image class="address-icon" src="../../static/images/order/address_icon.png"/>
+      <view class="address-info">
+          <view class="address-user-info">张大力<text class="address-user-phone">13512345678</text></view>
+          <text class="address-text">江苏省南京市福润雅居翠竹园111栋江苏省南京市福润雅居翠竹园111栋</text>
+      </view>
+      <van-icon wx:if="{{isArrow}}" name="arrow" />
+  </view>
+</view>

@@ -1,0 +1,28 @@
+<!-- components/shopCard/index.wxml -->
+<view class="goods_wrap custom-class">
+  <view class="cd_hd goods-hd">
+    <image class="goods_pic" mode="aspectFill" src="{{goodsInfo.banner}}" />
+  </view>
+  <view class="cd_bd">
+    <view class="goods_title ~van-ellipsis">{{goodsInfo.name}}</view>
+    <!-- 标签栏 -->
+    <!-- <view class="goods_tagsgroup">
+      <van-tag class="tag_wrap" color="rgba(90,198,226, .2)" text-color="rgba(47,155,202,1)" type="primary">
+        男生
+      </van-tag>
+      <van-tag class="tag_wrap" color="rgba(251,142,117, .2)" text-color="rgba(255,140,134,1)" type="warning">中学</van-tag>
+      <van-tag class="tag_wrap" color="rgba(197,213,224, .2)" text-color="rgba(126,140,155,1)">
+        中学
+      </van-tag>
+    </view> -->
+    <view class="goods_other">
+      <view class="goods_price ~van-ellipsis">
+        ￥
+        <text>{{goodsInfo.price}}</text>
+      </view>
+      <!-- <view class="goods_add">
+        <van-icon name="plus" />
+      </view> -->
+    </view>
+  </view>
+</view>

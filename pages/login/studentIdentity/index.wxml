@@ -1,0 +1,17 @@
+<!--pages/login/studentIdentity/index.wxml-->
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}" />
+<view class="container">
+  <view class="skip_wrap" bind:tap="gotoIndex">
+    跳过<van-icon name="arrow" />
+  </view>
+  <view class="main">
+    <view class="title">请选择您的注册身份</view>
+    <navigator class="idcard shadow-blur" url="/pages/login/userInfo/index?new_student=1">
+      <image src="/static/images/other/student_new.png" mode="aspectFill" />
+    </navigator>
+    <navigator class="idcard shadow-blur" url="/pages/login/userInfo/index?new_student=2">
+      <image src="/static/images/other/student_old.png" mode="aspectFill" />
+    </navigator>
+    <view class="tips">请放心选择，以后还可以更改</view>
+  </view>
+</view>

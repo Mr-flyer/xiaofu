@@ -1,0 +1,33 @@
+<!-- pages/login/loginMobile/index.wxml -->
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}" />
+<view class="container">
+  <view class="header">
+    <view class="title">欢迎登录</view>
+    <view class="desc">您好！</view>
+  </view>
+  <view class="main">
+    <form catchsubmit="formSubmit">
+      <van-cell-group border="{{false}}">
+        <van-field name="phone" placeholder="请输入手机号" clearable bind:input="handSetPhone">
+          <view slot="right-icon">+86</view>
+        </van-field>
+        <van-field name="captcha" placeholder="请输入验证码" type="number" maxlength="6" clearable use-button-slot>
+          <van-button slot="button" type="primary" open-type="getPhoneNumber" disabled="{{isBtnDisabled}}" size="small" bind:getphonenumber="handGetCode">
+            {{isBtnDisabled ? time + "秒后从新发送" : "获取验证码"}}
+          </van-button> 
+        </van-field>
+      </van-cell-group>
+      <view class="btnlogin_wrap">
+        <!-- 实际提交按钮 -->
+        <button id="simple_btn" form-type="submit" style="display: none">提交</button>
+        <label for="simple_btn">
+          <van-button type="info" size="large" round block>登录/注册</van-button>
+        </label>
+        <view class="tips">未注册用户登录后默认为注册用户</view>
+      </view>
+    </form>
+  </view>
+  <!-- 消息提示 -->
+  <van-notify id="van-notify" />
+  <van-toast id="van-toast" />
+</view>

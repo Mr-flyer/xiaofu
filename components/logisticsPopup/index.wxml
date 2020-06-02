@@ -1,0 +1,37 @@
+<van-overlay show="{{showLogistics}}" bind:tap="onCloseLogistics">
+    <view class="logistics-overlay" catchtap="handleTap">
+        <view class="logistics-overlay-main">
+            <view class="logistics-title">物流信息</view>
+            <view class="logistics-overlay-content">
+                <view class="logistics-text">物流单号</view>
+                <view class="logistics-field">
+                    <van-field
+                        class="logistics-input"
+                        value="{{ logisticsNumber }}"
+                        placeholder="请输入物流单号"
+                        border="{{ false }}"
+                        error="{{isLogisticsNumber}}"
+                        bind:change="onChangeLogisticsNumber"
+                    />
+                </view>
+                <view class="logistics-text">物流公司</view>
+                <view class="logistics-field">
+                    <van-field
+                        class="logistics-input"
+                        disabled
+                        value="{{ logisticsCompany }}"
+                        placeholder="请选择物流公司"
+                        error="{{isLlogisticsCompany}}"
+                        border="{{ false }}"
+                    />
+                    <van-icon name="arrow" />
+                </view>
+            </view>
+            <view class="logistics-btn">
+                <view bind:tap="logisticsConfirm" class="large-btn">确定</view>
+            </view>
+        </view>
+        <view class="overlay-line"></view>
+        <van-icon class="overlay-close" bind:tap="onCloseLogistics" name="close" />
+    </view>
+</van-overlay>

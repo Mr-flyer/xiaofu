@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
+    "order-address": "/components/address/index",
+    "order-goods": "/components/orderGoods/index"
+  }
+}

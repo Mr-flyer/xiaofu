@@ -1,0 +1,43 @@
+<view class="container">
+    <scroll-view class="main" scroll-y enable-flex>
+        <view class="personal-main">
+            <view class="personal-portrait">
+                <image class="portrait-img" src="../../../static/images/personal/default_portrait.png"/>
+                <view class="login-register"><text>登录/注册</text></view>
+            </view>
+            <view class="personal-info-main">
+                <image class="personal-info-bg" src="../../../static/images/personal/personal_bg.png" mode="aspectFill"/>
+                <view class="personal-info">
+                    <view class="personal-content">
+                        <view class="type-gender"><text class="info-title">我是 新学生</text><image class="gender-icon" src="../../../static/images/personal/girl.png"/></view>
+                        <view class="info-item"><text class="item-name">所在学校</text><text>{{userInfo.school}}</text></view>
+                        <view class="info-item"><text class="item-name">入学时间</text><text>2020年9月</text></view>
+                        <view class="info-item"><text class="item-name">姓名</text><text>{{userInfo.nick_name}}</text></view>
+                        <view class="info-item"><text class="item-name">班级</text><text>{{userInfo.student_class}}</text></view>
+                        <view class="info-item"><text class="item-name">学号</text><text>{{userInfo.student_id}}号</text></view>
+                    </view>
+                    <view class="personal-edit"><image class="edit-icon" src="../../../static/images/personal/edit.png" mode="aspectFill" bind:tap="editUserInfo"/>编辑</view>
+                </view>
+            </view>
+        </view>
+        <view class="personal-list">
+            <view class="my-order">
+                <view class="order-h1" bind:tap="myOrder"><text>我的订单</text><van-icon name="arrow" /></view>
+                <view class="order-status-ul">
+                    <view class="order-status-item" bind:tap="myOrder" wx:for="{{orderStatusList}}" wx:key="this" data-status="{{item.status}}">
+                        <view class="order-status-img">
+                            <image class="status-icon" src="{{item.img}}"/>
+                            <view class="order-status-badge" wx:if="{{item.num > 0}}">{{item.num}}</view>
+                        </view>
+                        <text class="order-status-text">{{item.name}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="personal-other">
+                <view class="other-item" bind:tap="changeAddress"><text>收货地址</text><van-icon name="arrow" /></view>
+                <view class="other-item"><text>关于我们</text><van-icon name="arrow" /></view>
+                <view class="other-item"><text>设置</text><van-icon name="arrow" /></view>
+            </view>
+        </view>
+    </scroll-view>
+</view>

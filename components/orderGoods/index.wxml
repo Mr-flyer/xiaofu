@@ -1,0 +1,9 @@
+<view class="goods-li-goods-info">
+    <view><image class="goods-pic" src="../../static/images/personal/default_portrait.png"/></view>
+    <view class="goods-info">
+        <text class="goods-info-type">春夏校服</text>
+        <text class="goods-info-text">尺寸款式：女生、M码、裙子</text>
+        <view class="goods-info-text"><text>数量：1</text><van-tag color="rgba(47,155,202,1)">换货中</van-tag></view>
+        <text class="goods-info-price">￥<text class="price">210.00</text></text>
+    </view>
+</view>

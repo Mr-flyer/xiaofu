@@ -1,0 +1,237 @@
+//  out: ${workspaceRoot}\\
+@import './_base.less'; // 基础样式
+@import './_colorUI.less'; // colorUI 内置样式
+@import '../../miniprogram_npm/@vant/weapp/common/index.wxss'; // vant 内置样式
+
+image,
+label {
+  vertical-align: middle;
+}
+// vant-weapp 定制主题
+page {
+  --cell-horizontal-padding: 24rpx;
+  --button-info-background-color: @themeColor;
+  --button-info-border-color: @themeColor;
+  --button-primary-background-color: @green;
+  --button-primary-border-color: @green;
+  height: 100vh;
+  font-family: PingFang SC;
+  background-color: @bgPageColor;
+  display: flex; 
+  flex-direction: column;
+  .container {
+    flex: 1;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transform: translate(0, 0); // 使内部position: fixed降级
+  }
+}
+.container {
+
+  // 页面主体
+  .main {
+    flex: 1;
+  }
+
+  // cell单元格 去除下划线左间距
+  .van-cell::after {
+    left: 0;
+  }
+  // tab选项宽度自适应，从左往右自然排列
+  .van-tab {
+    padding: 0 50rpx;
+    // flex: none!important;
+  }
+  // tab选项 active下滑线
+  .van-tabs__line {
+    background-color: @themeColor;
+  }
+
+  // panel 右侧 status容器 样式
+  .panel-index--van-panel__header-value {
+    font-size: 24rpx;
+    font-family: SF UI Text;
+    font-weight: 400;
+    color: rgba(126, 140, 155, 1);
+  }
+}
+
+/* ==================
+        空数据页面
+ ==================== */
+.container {
+  .empty {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // padding-top: ~`setHeight(220)`;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    image {
+      width: 355rpx;
+      height: 280rpx;
+    }
+
+    .tips {
+      font-size: 26rpx;
+      font-weight: 400;
+      color: rgba(102, 102, 102, 1);
+    }
+  }
+}
+
+/**
+  author: zhl
+*/
+/* ==================
+        普通按钮
+ ==================== */
+ .normal-btn {
+  min-width: 190rpx;
+  height: 70rpx;
+  background: @themeColor;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 35rpx;
+  line-height: 28rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+/* ==================
+        普通按钮-透明背景
+ ==================== */
+.normal-transparent-btn {
+  min-width: 190rpx;
+  height: 70rpx;
+  background: transparent;
+  color: @themeColor;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 35rpx;
+  line-height: 28rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  border:1px solid @themeColor;
+}
+/* ==================
+        普通按钮-灰色
+ ==================== */
+.normal-gray-btn {
+  min-width: 190rpx;
+  height: 70rpx;
+  background: transparent;
+  color: @timeColor;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 35rpx;
+  line-height: 28rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  border:1px solid @timeColor;
+}
+/* ==================
+        大号按钮
+ ==================== */
+ .large-btn {
+  width: 100%;
+  height: 100rpx;
+  background: @themeColor;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50rpx;
+  line-height: 34rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  font-size: 34rpx;
+}
+/* ==================
+        大号透明按钮
+ ==================== */
+ .large-transparent-btn {
+  width: 100%;
+  height: 100rpx;
+  background: transparent;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50rpx;
+  line-height: 34rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  font-size: 34rpx;
+  border: 1px solid @themeColor;
+  color: @themeColor;
+}
+/* ==================
+        底部按钮背景
+ ==================== */
+.bottom-btn {
+  width: 100%;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  height: 140rpx;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+}
+/* ==================
+        白底圆角背景
+ ==================== */
+.white-radius-bg {
+  width: 100%;
+  background: #fff;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+  display: table;
+  &> view:last-child {
+    border-bottom: none;
+  }
+}
+/* ==================
+       订单底部实付金额与支付按钮
+ ==================== */
+ .order-btns {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width:100%;
+  background: #fff;
+  height: 100rpx;
+  border-top: 1px solid @dividerColor;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40rpx;
+  flex-direction: row;
+  .order-payment {
+      .payment-price {
+          font-weight: bold;
+      }
+  }
+}
+/**end*/
+
+// 去除页面滚动条
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+} 

@@ -1,0 +1,36 @@
+<!-- 顶部导航栏 -->
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}"/>
+<view class="container">
+    <scroll-view class="main" scroll-y enable-flex>
+        <view class="detail-main">
+            <view class=" white-radius-bg">
+                <order-address></order-address>
+            </view>
+            <view class="order-goods-ul white-radius-bg">
+                <view class="order-goods-li" wx:for="{{1}}" wx:key="this">
+                    <view class="goods-school-info">
+                        <image class="goods-school-icon" src="../../../static/images/order/school-icon.png"/><text class="goods-school-text">南京师范大学附属中学</text>
+                    </view>
+                    <view class="goods-li-main">
+                        <view class="goods-li-item" wx:for="{{1}}" wx:key="this">
+                            <view class="goods-li-item-main">
+                                <order-goods class="goods-components"></order-goods>
+                            </view>
+                            <view class="exchange-goods-info">
+                                <view class="exchange-goods-item"><text class="exchange-goods-lable">换货详情</text><view><text>男生</text></view></view>
+                                <view class="exchange-goods-item"><text class="exchange-goods-lable">换货数量</text><view><text>男生</text></view></view>
+                                <view class="exchange-goods-item"><text class="exchange-goods-lable">收货地址</text><view class="exchange-goods-address"><text>姓名 18434324323</text><text class="address-text">江苏省南京市江苏省南京市江苏省南京市江</text></view></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="order-detail-other white-radius-bg">
+                <view class="other-item"><text>补运费</text><text>￥1800.00</text></view>
+            </view>
+        </view>
+    </scroll-view>
+    <view class="bottom-btn">
+        <view bind:tap="submit" bind:tap="payment" class="large-btn">确认支付</view>
+    </view>
+</view>

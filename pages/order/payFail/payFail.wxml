@@ -1,0 +1,16 @@
+<!-- 顶部导航栏 -->
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}"/>
+<view class="container">
+    <view class="success-main">
+        <image class="success-icon" src="../../../static/images/order/pay_fail_icon.png"/>
+        <view class="success-text">支付失败</view>
+        <view class="success-tips">
+            <text>请在15分钟内完成付款，否则订单将被取消</text>
+            <text>如已支付，可稍后查询订单状态，无需重新支付</text>
+        </view>
+        <view class="success-btns">
+            <view bind:tap="viewOrder" class="large-transparent-btn suc-left-btn">查看订单</view
+            ><view class="large-btn">重新支付</view>
+        </view>
+    </view>
+</view>

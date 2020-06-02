@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "app-home": "../appHome/index/index",
+    "app-type": "../appType/index/index",
+    "app-scar": "../appSCar/index/index",
+    "app-user": "../appUser/index/index",
+    "van-tabbar": "/miniprogram_npm/@vant/weapp/tabbar/index",
+    "van-tabbar-item": "/miniprogram_npm/@vant/weapp/tabbar-item/index"
+  }
+}

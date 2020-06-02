@@ -1,0 +1,39 @@
+<!-- pages/login/userInfo/index.wxml -->
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}" />
+<view class="container">
+  <view class="skip_wrap" bind:tap="gotoIndex">
+    跳过
+    <van-icon name="arrow" />
+  </view>
+  <view class="sex_wrap">
+    <van-radio-group class="sex_inner" value="{{ frmData.sex }}" bind:change="onChangeRadioSex">
+      <van-radio use-icon-slot value="{{ frmData.sex }}" name="1">
+        男生
+        <image class="sex_icon {{ frmData.sex === '1' ? '' : 'gray'}}" slot="icon" src="{{ frmData.sex === '1' ? icon.active_boy : icon.normal_boy }}" />
+      </van-radio>
+      <van-radio use-icon-slot value="{{ frmData.sex }}" name="2">
+        女生
+        <image class="sex_icon {{ frmData.sex === '2' ? '' : 'gray'}}" slot="icon" src="{{ frmData.sex === '2' ? icon.active_girl : icon.normal_girl }}" />
+      </van-radio>
+    </van-radio-group>
+  </view>
+  <van-cell-group class="main">
+    <van-field data-name="school" placeholder="请填写您的大学" readonly="{{showTime}}" center border="{{false}}" bind:blur="handIptBlur"></van-field>
+    <van-field data-name="admission_date" placeholder="请选择您的入学时间" value="{{enrollmentTime}}" center readonly is-link border="{{false}}" bind:tap="handShowTimePicker"></van-field>
+    <van-field data-name="student_class" placeholder="请填写您所在班级" readonly="{{showTime}}" center border="{{false}}" bind:blur="handIptBlur"></van-field>
+    <van-field data-name="user_name" placeholder="请填写您的真实姓名" readonly="{{showTime}}" center border="{{false}}" bind:blur="handIptBlur"></van-field>
+    <van-field data-name="student_id" placeholder="请填写您的学号" readonly="{{showTime}}" type="number" center border="{{false}}" bind:blur="handIptBlur">
+      <view slot="right-icon" class="ipt_right">号</view>
+    </van-field>
+  </van-cell-group>
+  <view class="footer">
+    <van-button type="info" size="large" round block bind:tap="frmSubmit">确定</van-button>
+  </view>
+
+  <!-- 时间选择器 -->
+  <van-overlay show="{{ showTime }}" bind:click="onClickHide">
+    <van-datetime-picker style="position: absolute; width: 100%; bottom: 0;" type="date" title="选择入学日期" value="{{ currentDate }}" min-date="{{ minDate }}" max-date="{{maxDate}}" formatter="{{ formatter }}" catch:confirm="handTimepickerConfirm" catch:cancel="handTimepickerCancel" />
+  </van-overlay>
+  <!-- 消息提示 -->
+  <van-notify id="van-notify" />
+</view>

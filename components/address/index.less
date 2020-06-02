@@ -1,0 +1,33 @@
+@import '../../static/less/_base.less';
+.order-address {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 40rpx 24rpx 32rpx 24rpx;
+  box-sizing: border-box;
+  .address-left {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .address-icon {
+          width: 34rpx;
+          height: 34rpx;
+      }
+      .address-info {
+          margin-left: 8rpx;
+          font-size: 26rpx;
+          line-height: 26rpx;
+          flex: 1;
+          .address-user-info {
+              margin-bottom: 14rpx;
+              .address-user-phone {
+                  color: @timeColor;
+              }
+          }
+          .address-text {
+              line-height: 36rpx;
+          }
+      }
+  }
+}

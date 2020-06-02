@@ -1,0 +1,33 @@
+<!--index.wxml-->
+<!-- 顶部导航栏 -->
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}"/>
+<!-- 主体内容区 -->
+<view class="container">
+  <app-home wx:if="{{active == 0}}"/>
+  <app-type wx:if="{{active == 1}}"/>
+  <app-scar wx:if="{{active == 2}}"/>
+  <app-user wx:if="{{active == 3}}"/>
+</view>
+<!-- 页脚 工具栏 -->
+<van-tabbar custom-class="cu-bar tabbar bg-white shadow foot footerbar_wrap" active-color="rgba(47,155,202,1)" active="{{ active }}" bind:change="onChange">
+  <van-tabbar-item >
+    <image class="tabber_icon" slot="icon" src="/static/images/tabbar/index@2x.png" />
+    <image class="tabber_icon" slot="icon-active" src="/static/images/tabbar/index_cur@2x.png" />
+    首页
+  </van-tabbar-item>
+  <van-tabbar-item >
+    <image class="tabber_icon" slot="icon" src="/static/images/tabbar/type@2x.png" />
+    <image class="tabber_icon" slot="icon-active" src="/static/images/tabbar/type_cur@2x.png" />
+    分类
+  </van-tabbar-item>
+  <van-tabbar-item >
+    <image class="tabber_icon" slot="icon" src="/static/images/tabbar/cart@2x.png" />
+    <image class="tabber_icon" slot="icon-active" src="/static/images/tabbar/cart_cur@2x.png" />
+    购物车
+  </van-tabbar-item>
+  <van-tabbar-item >
+    <image class="tabber_icon" slot="icon" src="/static/images/tabbar/user@2x.png" />
+    <image class="tabber_icon" slot="icon-active" src="/static/images/tabbar/user_cur@2x.png" />
+    我的
+  </van-tabbar-item>
+</van-tabbar>

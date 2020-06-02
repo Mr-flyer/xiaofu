@@ -1,0 +1,15 @@
+{
+  "component": true,
+  "usingComponents": {
+    "pullDownRefresh": "/components/pullDownRefresh/pullDownRefresh",
+    "load-more": "/components/loadMore/index",
+    "logistics-popup": "/components/logisticsPopup/index",
+    "van-skeleton": "/miniprogram_npm/@vant/weapp/skeleton/index",
+    "van-search": "/miniprogram_npm/@vant/weapp/search/index",
+    "van-sticky": "/miniprogram_npm/@vant/weapp/sticky/index",
+    "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
+    "van-tag": "/miniprogram_npm/@vant/weapp/tag/index",
+    "van-tab": "/miniprogram_npm/@vant/weapp/tab/index",
+    "van-tabs": "/miniprogram_npm/@vant/weapp/tabs/index"
+  }
+}

@@ -1,0 +1,24 @@
+<!-- pages/appType/index/index.wxml -->
+<view class="container">
+  <van-search placeholder="搜索学校名称" input-align="center" shape="round" readonly />
+  <view class="VerticalBox main">
+    <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}">
+      <view class="cu-item {{index==TabCur?'text-green cur':''}}" wx:for="{{list}}" wx:key bind:tap='tabSelect' data-id="{{index}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
+    <scroll-view class="VerticalMain" scroll-y scroll-with-animation scroll-into-view="main-{{MainCur}}" bind:scroll="VerticalMain">
+      <view class="padding-top padding-lr" wx:for="{{list}}" wx:key id="main-{{index}}">
+        <view class='cu-bar solid-bottom bg-white'>
+          <view class='action'>
+            <text class='cuIcon-title text-green'></text>
+            Tab-{{item.name}}
+          </view>
+        </view>
+        <view class="cu-list menu-avatar">
+          <basicCommodityCard custom-class="goods_item" goods-hd="goods_hd" wx:for="{{item.school_products}}" wx:for-item="val" goods-info="{{val}}" data-index="{{val.id}}" bind:tap="gotoGoodsDetails" />
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

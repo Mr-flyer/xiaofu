@@ -1,0 +1,12 @@
+{
+  "component": true,
+  "usingComponents": {
+    "order-goods": "/components/orderGoods/index",
+    "order-address": "/components/address/index",
+    "logistics-popup": "/components/logisticsPopup/index",
+    "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
+    "van-checkbox": "/miniprogram_npm/@vant/weapp/checkbox/index",
+    "van-overlay": "/miniprogram_npm/@vant/weapp/overlay/index",
+    "van-field": "/miniprogram_npm/@vant/weapp/field/index"
+  }
+}

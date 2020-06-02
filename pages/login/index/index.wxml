@@ -1,0 +1,18 @@
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}" />
+<view class="container">
+  <view class="header">
+    <swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+      <swiper-item wx:for="{{swiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
+        <view class="swiper-item">
+          <image src="{{item.url}}" mode="aspectFit" wx:if="{{item.type=='image'}}"></image>
+          <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+        </view>
+      </swiper-item>
+    </swiper>
+    <image class="example_pic" src="/static/images/other/example_pic@2x.png" mode="aspectFill" />
+  </view>
+  <view class="btn_wrap">
+    <van-button size="large" round block bind:tap="gotoLoginMobile">登录/注册</van-button>
+    <van-button size="large" round block type="primary" open-type="getUserInfo" bind:getuserinfo="loginWechat">微信账号快捷登录</van-button>
+  </view>
+</view>
