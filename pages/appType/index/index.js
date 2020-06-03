@@ -54,13 +54,13 @@ Component({
     })
     wx.hideLoading()
   },
-  pageLifetimes: {
-    show() {
-      this.setData({
-        searchValue: ''
-      })
-    }
-  },
+  pageLifetimes: {
+    show() {
+      this.setData({
+        searchValue: ''
+      })
+    }
+  },
   methods: {
     gotoGoodsDetails(e) {
       let { index } = e.currentTarget.dataset

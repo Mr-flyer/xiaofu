@@ -9,9 +9,9 @@
     <form catchsubmit="formSubmit">
       <van-cell-group border="{{false}}">
         <van-field name="phone" placeholder="请输入手机号" clearable use-button-slot>
-          <van-button slot="button" type="primary" open-type="getPhoneNumber" disabled="{{isBtnDisabled}}" size="small" bind:getphonenumber="handGetCode">
+          <!-- <van-button slot="button" type="primary" open-type="getPhoneNumber" disabled="{{isBtnDisabled}}" size="small" bind:getphonenumber="handGetCode">
             {{isBtnDisabled ? time + "秒后从新发送" : "获取手机号"}}
-          </van-button>
+          </van-button> -->
         </van-field>
         <!-- <van-field name="phone" placeholder="请输入手机号" clearable bind:input="handSetPhone">
           <view slot="right-icon">+86</view>

@@ -51,13 +51,13 @@ Component({
     searchView = this.selectComponent("#searchView");
     // searchView.show(this.data.searchValue);
   },
-  pageLifetimes: {
-    show() {
-      this.setData({
-        searchValue: ''
-      })
-    }
-  },
+  pageLifetimes: {
+    show() {
+      this.setData({
+        searchValue: ''
+      })
+    }
+  },
   methods: {
     gotoGoodsDetails(e) {
       let { goodid } = e.currentTarget.dataset;

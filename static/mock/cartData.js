@@ -2,7 +2,7 @@ module.exports = {
   cartData: [
     {
       "id":1,
-      "amount":2,
+      "count":2,
       "price":50,
       "name":"手机",
       "checked":false,
@@ -10,7 +10,7 @@ module.exports = {
     },
     {
       "id":2,
-      "amount":1,
+      "count":1,
       "price":10,
       "name":"显示器",
       "checked": false,
@@ -18,7 +18,7 @@ module.exports = {
     },
     {
       "id":3,
-      "amount":5,
+      "count":5,
       "price":120,
       "name":"可乐",
       "checked": false,
@@ -26,7 +26,7 @@ module.exports = {
     },
     {
       "id":4,
-      "amount":10,
+      "count":10,
       "price":50,
       "name":"手机",
       "checked": false,
@@ -34,7 +34,7 @@ module.exports = {
     },
     {
       "id":5,
-      "amount":1,
+      "count":1,
       "price":10,
       "name":"芝麻",
       "checked": false,
