@@ -2,14 +2,13 @@
 <!-- 顶部导航栏 -->
 <mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}" />
 <view class="container">
+  <!-- 商品概要 -->
   <view class="header">
     <view class="swiper_wrap">
       <swiper class="swiper_goods" bind:animationfinish="hangSwiperEnd">
         <block wx:for="{{images}}" wx:key="*this">
           <swiper-item>
           <image src="{{item}}" mode="aspectFill"/>
-            <!-- <view class="swiper-item">
-            </view> -->
           </swiper-item>
         </block>
       </swiper>
@@ -38,14 +37,17 @@
       </view>
     </view>
   </view>
+  <!-- 商品规格概要 -->
   <view class="section goods_types">
     <van-field label="选择" value="{{selectTxt}}" title-width="90rpx" readonly is-link clickable bind:tap="hangActionSheetShow" />
   </view>
+  <!-- 商品详情 -->
   <view class="section goods_details">
     <rich-text class="">{{summary}} </rich-text>
   </view>
+  <!-- 商品导航 -->
   <van-goods-action custom-class="goods_action">
-    <van-goods-action-button color="#3EA9C5" size="large" text="加入购物车" bind:tap="addShopCart"/>
+    <van-goods-action-button color="#3EA9C5" size="large" text="加入购物车" bind:tap="hangActionSheetShow"/>
     <van-goods-action-button color="#2F9BCA" size="large" text="立即购买" bind:click="gotoOrder" />
   </van-goods-action>
 
@@ -73,4 +75,6 @@
       </view>
     </view>
   </van-action-sheet>
+  <!-- 轻提示 -->
+  <van-toast id="van-toast" />
 </view>

@@ -1,6 +1,7 @@
 // pages/goods/goodsDetails/index.js
 import { specs_list } from "../../../static/mock/goodsTypes";
 import specialModel from '../../../models/special';
+import Toast from '../../../miniprogram_npm/@vant/weapp/toast/toast';
 Page({
   data: {
     canUse: getApp().globalData.canUse,
@@ -24,7 +25,6 @@ Page({
     schoolId: 2,
   },
   onLoad: function(options) {
-    console.log(options);
     this.setData({ ...options })
     specialModel.getGoodsDetail(options.goodsId)
     .then(({data}) => {
@@ -34,13 +34,6 @@ Page({
     this.setData({
       "navbarData.navigationBarTitleText": "商品详情"
     });
-    
-  },
-  // 前往订单页
-  gotoOrder() {
-    wx.navigateTo({
-      url: `/pages/order/settleCenter/settleCenter`
-    })
   },
   // 商品图片轮播切换完成时
   hangSwiperEnd(e) {
@@ -49,7 +42,7 @@ Page({
       swiperSeq: ++swiperSeq,
     })
   },
-  // 选择商品规格
+  // 选择商品规格 --- SKU 弹窗
   onChangeRadio(e) {
     let { detail } = e
     let { idx } = e.currentTarget.dataset
@@ -59,28 +52,24 @@ Page({
       [`specs_list[${idx}].selectVal`]: selectVal,
     })
   },
-  // 添加至购物车
+  // 添加至购物车 --- SKU 弹窗
   addShopCart() {
-    let { goodsId, price, name, count, school_name: schoolName, school_id: schoolId } = this.data
+    let { goodsId, price, name, count, banner, school_name: schoolName, school_id: schoolId } = this.data
     let targetArr = this.data.specs_list.map(v => ({
       specs_info_id: v.val, name: v.selectVal
     }))
     let goodsInfo = {
       product_id: goodsId, price, name, count,
-      specs_list: targetArr
+      specs_list: targetArr, image: banner
     }
-    // console.log(object);
-    console.log(targetArr);
     
     if(targetArr.every(v => v.specs_info_id)) {
-      // console.log("选择的商品规格：", targetArr);
       let shopCartData = wx.getStorageSync('shopCart')
-      // console.log('添加商品至购物车', goodsInfo);
       if(shopCartData) {
-        // console.log('添加成功');
         let targetGoods = shopCartData.find(v => v.schoolId === schoolId)
-        if(targetGoods) {
+        if(targetGoods) { // 同一类型（学校）商品
           if(targetGoods.cartData) {
+            // goodsInfo.id == 本次选择商品唯一标识，goodsInfo.product_id == 本次选择商品id
             goodsInfo.id = String(schoolId) + goodsId + targetGoods.cartData.length
             targetGoods.cartData.unshift(goodsInfo)
           }else {
@@ -95,7 +84,6 @@ Page({
         }
         wx.setStorageSync('shopCart', shopCartData)
       }else {
-        // console.log('sss');
         goodsInfo.id = String(schoolId) + goodsId + '0'
         wx.setStorageSync('shopCart', [
           {
@@ -103,28 +91,40 @@ Page({
           }
         ])
       }
-      wx.navigateTo({
-        url: `/pages/index/index?active=2`
-      })
-    }else if(!this.data.showSKU) {
+      this.setData({ showSKU: false })
+      Toast.success('添加成功，请至购物车查看')
+    } // 本地有缓存商品
+    else if(!this.data.showSKU) {
       this.setData({ showSKU: true })
-    }
+    } // 无缓存且 SKU界面未开启
+    else {
+      let idx = targetArr.findIndex(v => !v.name)
+      let { specs_list } = this.data
+      let type = specs_list[idx].name
+      console.log(type);
+      Toast.fail(`请选择 ${type}` || `选择异常`)
+    } // 无缓存且 SKU界面开启 但选择
   },
   // 步进器值改变时
   onChangeStepper({detail}) {
     this.data.count = detail;
   },
-  // 显示上拉弹窗
+  
+  // 立即购买前往订单页 --- 页脚商品导航
+  gotoOrder() {
+    wx.navigateTo({
+      url: `/pages/order/settleCenter/settleCenter`
+    })
+  },
+  // 显示上拉弹窗 --- 页脚商品导航
   hangActionSheetShow() {
     this.setData({ showSKU: true })
   },
   // 隐藏下拉弹窗
   hangActionSheetClose() {
     let selectTxt = this.data.specs_list.map(v => v.selectVal).join('、')
-    console.log("选择的商品规格：", selectTxt);
     this.setData({ 
-      showSKU: false,
-      selectTxt
+      showSKU: false, selectTxt
     })
   }
 })

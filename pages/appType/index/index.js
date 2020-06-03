@@ -54,6 +54,13 @@ Component({
     })
     wx.hideLoading()
   },
+  pageLifetimes: {
+    show() {
+      this.setData({
+        searchValue: ''
+      })
+    }
+  },
   methods: {
     gotoGoodsDetails(e) {
       let { index } = e.currentTarget.dataset
@@ -114,9 +121,6 @@ Component({
       if(this.data.searchValue) {
         wx.navigateTo({
           url: `/pages/goods/searchList/index?searchValue=${this.data.searchValue}`
-        })
-        this.setData({
-          searchValue: ''
         })
       }else {
         wx.showToast({ title: '请输入学校名称', icon: 'none', duration: 2000 });

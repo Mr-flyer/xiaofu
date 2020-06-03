@@ -20,7 +20,7 @@
               </view>
               <view class="store_cont">
                 <view class="store_info">
-                  <view class="store_name van-ellipsis">{{val.name}}</view>
+                  <view class="store_name van-ellipsis">{{val.id}}{{val.name}}</view>
                   <view class="store_tags">
                     <view class="van-ellipsis">
                       <text wx:for="{{val.specs_list}}" wx:for-item="v" space="nbsp">{{v.name}}  </text>
@@ -42,7 +42,11 @@
       </van-checkbox-group>
     </view>
   </view>
+
+  <!-- 页脚提交订单栏 -->
   <van-submit-bar custom-class="submit_bar" bar-class="bar_class ~shadow-blur" button-class="btn_class" price-class="price_class" price="{{ totalPrice*100 }}" button-text="提交订单" button-type="info" safe-area-inset-bottom="{{false}}" bind:submit="onSubmitOrder">
     <van-checkbox value="{{ checkedAll }}" bind:change="onChangeCheckAll">全选</van-checkbox>
   </van-submit-bar>
+  <!-- 轻提示 -->
+  <van-toast id="van-toast" />
 </view>
