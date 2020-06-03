@@ -7,13 +7,13 @@
         <van-checkbox slot="icon" data-idx="{{index}}" value="{{item.cartData.length === item.result.length}}" bind:change="onChangeGruop"></van-checkbox>
         <view slot="title" class="store_title">
           <image src="/static/images/order/school-icon.png" mode="aspectFill" />
-          {{item.name}}
+          {{item.schoolName}}
         </view>
       </van-cell>
       <!-- 商品 -->
       <van-checkbox-group class="checkbox_group" value="{{ item.result }}" data-idx="{{index}}" bind:change="onChangeCheckbox">
-        <van-swipe-cell wx:for="{{item.cartData}}" wx:for-index="idx" wx:for-item="val" wx:key="idx" right-width="{{ 50 }}" async-close bind:close="onClose">
-          <van-checkbox custom-class="checkbox_swipecont" name="{{val.id}}" label-disabled >
+        <van-swipe-cell wx:for="{{item.cartData}}" wx:for-index="idx" wx:for-item="val" wx:key="{{val.id}}" right-width="{{ 50 }}" async-close data-id="{{val.id}}" bind:close="onCloseGoods">
+          <van-checkbox custom-class="checkbox_swipecont" wx:key="{{val.id}}" name="{{val.id}}" label-disabled >
             <view class="store_card">
               <view class="store_pic">
                 <image src="{{val.image}}" mode="aspectFill" />
@@ -22,7 +22,9 @@
                 <view class="store_info">
                   <view class="store_name van-ellipsis">{{val.name}}</view>
                   <view class="store_tags">
-                    <text class="van-ellipsis" space="nbsp">女生  M码  裙装裙装裙装裙装裙装裙装裙装裙装</text>
+                    <view class="van-ellipsis">
+                      <text wx:for="{{val.specs_list}}" wx:for-item="v" space="nbsp">{{v.name}}  </text>
+                    </view>
                   </view>
                 </view>
                 <view class="store_price">
@@ -30,7 +32,7 @@
                     ￥
                     <text>{{val.price}}</text>
                   </view>
-                  <van-stepper class="num" data-index="{{index}}" data-idx="{{idx}}" value="{{ val.amount }}" bind:change="onChangeStepper" />
+                  <van-stepper class="num" data-index="{{index}}" data-idx="{{idx}}" value="{{ val.count }}" bind:change="onChangeStepper" />
                 </view>
               </view>
             </view>
@@ -40,7 +42,7 @@
       </van-checkbox-group>
     </view>
   </view>
-  <van-submit-bar custom-class="submit_bar" bar-class="bar_class ~shadow-blur" button-class="btn_class" price-class="price_class" price="{{ totalPrice*100 }}" button-text="提交订单" button-type="info" safe-area-inset-bottom="{{false}}" bind:submit="onClickButton">
+  <van-submit-bar custom-class="submit_bar" bar-class="bar_class ~shadow-blur" button-class="btn_class" price-class="price_class" price="{{ totalPrice*100 }}" button-text="提交订单" button-type="info" safe-area-inset-bottom="{{false}}" bind:submit="onSubmitOrder">
     <van-checkbox value="{{ checkedAll }}" bind:change="onChangeCheckAll">全选</van-checkbox>
   </van-submit-bar>
 </view>

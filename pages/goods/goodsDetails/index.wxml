@@ -34,6 +34,7 @@
           <text>{{price}}</text>
         </view>
         <!-- <view class="price_old">￥268.00-398.00</view> -->
+        <view class="price_old">库存 {{stock}}</view>
       </view>
     </view>
   </view>
@@ -41,7 +42,7 @@
     <van-field label="选择" value="{{selectTxt}}" title-width="90rpx" readonly is-link clickable bind:tap="hangActionSheetShow" />
   </view>
   <view class="section goods_details">
-    <view class=""> </view>
+    <rich-text class="">{{summary}} </rich-text>
   </view>
   <van-goods-action custom-class="goods_action">
     <van-goods-action-button color="#3EA9C5" size="large" text="加入购物车" bind:tap="addShopCart"/>

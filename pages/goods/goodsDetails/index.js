@@ -14,24 +14,26 @@ Page({
     },
     swiperSeq: 1,  // 
     time: 30 * 60 * 60 * 1000, // 倒计时
-    showSKU: true, // SKU显隐
+    showSKU: false, // SKU显隐
     specs_list, // 默认商品规格数据
-    stepNum: 1, // 默认选择商品1数量
+    count: 1, // 默认选择商品1数量
     stock: 10, // 可选商品数量
     name: '商品名称', // 商品名称
     price: 10, // 商品价格
+    schoolName: 'xx学校',
+    schoolId: 2,
   },
   onLoad: function(options) {
     console.log(options);
     this.setData({ ...options })
-    // specialModel.getGoodsDetail(options.goodsId)
-    // .then(({data}) => {
-    //   console.log(data);
-    //   this.setData({...data})
-    // })
-    // this.setData({
-    //   "navbarData.navigationBarTitleText": "商品详情"
-    // });
+    specialModel.getGoodsDetail(options.goodsId)
+    .then(({data}) => {
+      console.log(data);
+      this.setData({...data})
+    })
+    this.setData({
+      "navbarData.navigationBarTitleText": "商品详情"
+    });
     
   },
   // 前往订单页
@@ -59,31 +61,58 @@ Page({
   },
   // 添加至购物车
   addShopCart() {
-    let { goodsId, price, name } = this.data
+    let { goodsId, price, name, count, school_name: schoolName, school_id: schoolId } = this.data
     let targetArr = this.data.specs_list.map(v => ({
-      id: v.val, name: v.name
+      specs_info_id: v.val, name: v.selectVal
     }))
-    let goodObj = {
-      goodsId, price, name, tags: targetArr
+    let goodsInfo = {
+      product_id: goodsId, price, name, count,
+      specs_list: targetArr
     }
-    // if(targetArr.every(v => v)) {
-      console.log("选择的商品规格：", targetArr);
+    // console.log(object);
+    console.log(targetArr);
+    
+    if(targetArr.every(v => v.specs_info_id)) {
+      // console.log("选择的商品规格：", targetArr);
       let shopCartData = wx.getStorageSync('shopCart')
+      // console.log('添加商品至购物车', goodsInfo);
       if(shopCartData) {
-        
+        // console.log('添加成功');
+        let targetGoods = shopCartData.find(v => v.schoolId === schoolId)
+        if(targetGoods) {
+          if(targetGoods.cartData) {
+            goodsInfo.id = String(schoolId) + goodsId + targetGoods.cartData.length
+            targetGoods.cartData.unshift(goodsInfo)
+          }else {
+            goodsInfo.id = goodsId + '0'
+            targetGoods.cartData = [goodsInfo]
+          }
+        }else {
+          goodsInfo.id = String(schoolId) + goodsId + '0'
+          shopCartData.unshift({
+            schoolName, schoolId, cartData: [goodsInfo]
+          })
+        }
+        wx.setStorageSync('shopCart', shopCartData)
       }else {
-        wx.setStorageSync('shopCart', [])
+        // console.log('sss');
+        goodsInfo.id = String(schoolId) + goodsId + '0'
+        wx.setStorageSync('shopCart', [
+          {
+            schoolName, schoolId, cartData: [goodsInfo]
+          }
+        ])
       }
-      // wx.navigateTo({
-      //   url: `/pages/index/index?active=2`
-      // })
-    // }else if(!this.data.showSKU) {
-    //   this.setData({ showSKU: true })
-    // }
+      wx.navigateTo({
+        url: `/pages/index/index?active=2`
+      })
+    }else if(!this.data.showSKU) {
+      this.setData({ showSKU: true })
+    }
   },
   // 步进器值改变时
   onChangeStepper({detail}) {
-    this.data.stock = detail;
+    this.data.count = detail;
   },
   // 显示上拉弹窗
   hangActionSheetShow() {

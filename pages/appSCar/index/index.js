@@ -9,22 +9,22 @@ Component({
   data: {
     orderList: [
       {
-        name: "南京师范大学附属中学",
+        schoolName: "南京师范大学附属中学",
         result: [], checkedGroup: false,
         cartData: cartData.slice(0, 2),
       },
       {
-        name: "科技金融大厦",
+        schoolName: "科技金融大厦",
         result: [], checkedGroup: false,
         cartData: cartData.slice(2, 3),
       },
       {
-        name: "奥体中心",
+        schoolName: "奥体中心",
         result: [], checkedGroup: false,
         cartData: cartData.slice(3, 4),
       },
       {
-        name: "浦口",
+        schoolName: "浦口",
         result: [], checkedGroup: false,
         cartData: cartData.slice(4, 5),
       },
@@ -44,8 +44,13 @@ Component({
       let target = this.data.orderList.map(v => v.result).flat()
       // 选中商品详细信息
       let targetArr = target.map(id => cartDataAll.find(v => v.id == id))
+      console.log("选中商品", targetArr);
       // 计算总价
-      let totalPrice = targetArr.reduce((acc, cur) => acc + cur.price * cur.amount, 0)
+      let totalPrice = 0
+      if(targetArr.every(v => v)) {
+        totalPrice = targetArr.reduce((acc, cur) => acc + cur.price * cur.count, 0)
+      }
+      this.data.targetArr = targetArr
       this.setData({
         totalPrice,
         checkedAll: field.every(v => v.checkedGroup) // 全选
@@ -55,13 +60,10 @@ Component({
   attached: function(){
     // const taget = this.selectComponent(`#swipe-cell`);
     // taget.open()
-    wx.login({
-      success: function(res) {
-        console.log(res);
-      },
-      fail(err) {
-        console.log(err);
-      }
+    let shopCartData = wx.getStorageSync('shopCart')
+    // console.log("本地购物车缓存数据：", shopCartData);
+    this.setData({
+      orderList: shopCartData
     })
   },
   methods: {
@@ -97,7 +99,7 @@ Component({
     onChangeStepper(e) {
       let { orderList } = this.data
       let { index, idx } = e.currentTarget.dataset
-      orderList[index].cartData[idx].amount = e.detail;
+      orderList[index].cartData[idx].count = e.detail;
       this.setData({
         orderList
       })
@@ -115,10 +117,33 @@ Component({
       })
     },
     // 提交订单
-    onClickButton() {
+    onSubmitOrder() {
+      let { targetArr } = this.data
+      let selectArr = this.data.targetArr.map(v => ({
+        product_id: v.product_id,
+        count: v.count,
+        specs_list: v.specs_list,
+      }))
+      console.log(selectArr);
       wx.navigateTo({
         url: `/pages/order/settleCenter/settleCenter`
       })
     },
+    onCloseGoods(e) {
+      let { instance } = e.detail
+      console.log(instance);
+      let { id } = e.currentTarget.dataset
+      let { orderList } = this.data
+      // 所有商品
+      // let cartDataAll = orderList.map(v => v.cartData).flat()
+      // let index = cartDataAll.findIndex(v => v.id == id)
+      orderList.forEach(v => {
+        let idx = v.cartData.findIndex(v => v.id == id)
+        v.cartData.splice(idx, 1)
+        instance.close()
+      })
+      // console.log(orderList);
+      this.setData({ orderList })
+    }
   }
 })

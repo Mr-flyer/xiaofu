@@ -10,7 +10,7 @@ Page({
       // showPre: true, // 是否只展示返回键 默认 false
       // hideCapsule: true, // 是否隐藏胶囊
     },
-    active: 3, // tab选中索引
+    active: 0, // tab选中索引
     navTitle: ["校服预定", "分类", "购物车", "个人中心"]
   },
   onLoad: function(options) {
