@@ -43,14 +43,20 @@ class SpecialModel extends HTTP {
       method: 'POST', data
     })
   }
-  // 获取商品类型
+  // 获取商品类型及对应商品
   getGoodsTypes() {
     return this.request({
       url: `api/v1/school/list_2_prodcuts`,
       method: 'GET'
     })
   }
-
+  // 提交订单 --- 结算中心页
+  setGoodsOrder(data) {
+    return this.request({
+      url: `api/v1/order/`,
+      method: 'POST', data
+    })
+  }
   /**
    * 测试接口
    * @param {*} data 

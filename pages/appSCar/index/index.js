@@ -49,6 +49,7 @@ Component({
       let targetArr = target.map(id => cartDataAll.find(v => v.id == id))
       if(targetArr[0]) {
         this.data.targetArr = targetArr
+        console.log('订单数组', targetArr);
       }
       // console.log("选中商品", targetArr);
       // 计算总价

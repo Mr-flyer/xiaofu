@@ -1,40 +1,57 @@
 <!-- 顶部导航栏 -->
-<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}"/>
+<mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}" />
 <view class="container">
-    <scroll-view class="main" scroll-y enable-flex>
-        <view class="settle-center">
-            <view class="settle-info white-radius-bg">
-                <view class="settle-delivery-type">
-                    <text class="name">配送方式</text><view class="delivery-arrow"><text>普通快递普通快递普通快递普通快递普通快递普通快递</text><van-icon name="arrow" /></view>
-                </view>
-                <view class="settle-delivery-user">
-                    <view class="name">收货人信息</view>
-                    <order-address isArrow="true"></order-address>
-                </view>
-            </view>
-            <view class="order-goods-ul white-radius-bg">
-                <view class="order-goods-li" wx:for="{{2}}" wx:key="this">
-                    <view class="goods-school-info">
-                        <image class="goods-school-icon" src="../../../static/images/order/school-icon.png"/><text class="goods-school-text">南京师范大学附属中学</text>
-                    </view>
-                    <view class="goods-li-main">
-                        <view class="goods-li-item" wx:for="{{2}}" wx:key="this">
-                            <view class="goods-li-item-main">
-                                <order-goods class="goods-components"></order-goods>
-                            </view>
-                        </view>
-                    </view>
-                </view>
-            </view>
-            <view class="order-detail-other white-radius-bg">
-                <view class="other-item"><text>商品金额</text><text>￥1800.00</text></view>
-                <view class="other-item"><text>优惠金额</text><text>￥1800.00</text></view>
-                <view class="other-item"><text>运费</text><text>￥1800.00</text></view>
-            </view>
+  <scroll-view class="main" scroll-y enable-flex>
+    <view class="settle-center">
+      <view class="settle-info white-radius-bg">
+        <view class="settle-delivery-type">
+          <text class="name">配送方式</text>
+          <view class="delivery-arrow">
+            <text>普通快递普通快递普通快递普通快递普通快递普通快递</text>
+            <van-icon name="arrow" />
+          </view>
         </view>
-    </scroll-view>
-    <view class="order-btns">
-        <text class="order-payment">实付：<text class="payment-price">￥236.00</text></text>
-        <view class="normal-btn">立即支付</view>
+        <view class="settle-delivery-user" bind:tap="changeAddress">
+          <view class="name">收货人信息</view>
+          <order-address isArrow="true"></order-address>
+        </view>
+      </view>
+      <view class="order-goods-ul white-radius-bg">
+        <view class="order-goods-li" wx:for="{{2}}" wx:key="this">
+          <view class="goods-school-info">
+            <image class="goods-school-icon" src="../../../static/images/order/school-icon.png" />
+            <text class="goods-school-text">南京师范大学附属中学</text>
+          </view>
+          <view class="goods-li-main">
+            <view class="goods-li-item" wx:for="{{2}}" wx:key="this">
+              <view class="goods-li-item-main">
+                <order-goods class="goods-components"></order-goods>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="order-detail-other white-radius-bg">
+        <view class="other-item">
+          <text>商品金额</text>
+          <text>￥1800.00</text>
+        </view>
+        <view class="other-item">
+          <text>优惠金额</text>
+          <text>￥1800.00</text>
+        </view>
+        <view class="other-item">
+          <text>运费</text>
+          <text>￥1800.00</text>
+        </view>
+      </view>
     </view>
+  </scroll-view>
+  <view class="order-btns">
+    <text class="order-payment">
+      实付：
+      <text class="payment-price">￥236.00</text>
+    </text>
+    <view class="normal-btn">立即支付</view>
+  </view>
 </view>
