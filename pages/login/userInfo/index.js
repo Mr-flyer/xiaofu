@@ -58,7 +58,7 @@ Page({
           "frmData.student_class": data.student_class,
           "frmData.user_name": data.user_name,
           "frmData.student_id": data.student_id,
-          enrollmentTime: data.admission_date ? dayjs(parseInt(data.admission_date)).format('YYYY年-MM月-DD日'): ''
+          enrollmentTime: data.admission_date ? dayjs(parseInt(data.admission_date)).format('YYYY年-MM月-DD日') : ''
         })
       })
     }
