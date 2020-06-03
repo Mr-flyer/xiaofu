@@ -52,7 +52,7 @@ Page({
         data
       }) => {
         _that.setData({
-          "frmData.sex": data.sex==0?'1':'2',
+          "frmData.sex": data.sex,
           "frmData.school": data.school,
           "frmData.admission_date": data.admission_date,
           "frmData.student_class": data.student_class,
