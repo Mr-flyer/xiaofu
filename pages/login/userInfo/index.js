@@ -75,7 +75,7 @@ Page({
   // 选择性别
   onChangeRadioSex(event) {
     this.setData({
-      "frmData.radio": event.detail,
+      "frmData.sex": event.detail,
     });
   },
   // 选择日期 -- 开启日期下拉窗

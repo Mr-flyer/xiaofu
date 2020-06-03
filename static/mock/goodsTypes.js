@@ -1,8 +1,8 @@
 module.exports = {
-  types: [
+  specs_list: [
     {
       type: "radio",
-      title: "性别",
+      name: "性别",
       description: "",
       required: true,
       goto: "",
@@ -12,27 +12,27 @@ module.exports = {
       random: false,
       maxRow: "1",
       refer: null,
-      options: [
+      specs_info: [
         {
-          id: "o-100-ABCD",
+          specs_info_id: "o-100-ABCD",
           goto: "",
           display: [],
           noRandom: false,
-          text: "男生"
+          name: "男生"
         },
         {
-          id: "o-101-EFGH",
+          specs_info_id: "o-101-EFGH",
           goto: "",
           display: [],
           noRandom: false,
-          text: "女生"
+          name: "女生"
         }
       ],
       id: "q-01-sex"
     },
     {
       type: "radio",
-      title: "尺码",
+      name: "尺码",
       description: "",
       required: true,
       goto: "",
@@ -42,41 +42,41 @@ module.exports = {
       random: false,
       maxRow: "1",
       refer: null,
-      options: [
+      specs_info: [
         {
-          id: "o-100-ABCD",
+          specs_info_id: "o-100-ABCD",
           goto: "",
           display: [],
           noRandom: false,
-          text: "XS"
+          name: "XS"
         },
         {
-          id: "o-101-EFGH",
+          specs_info_id: "o-101-EFGH",
           goto: "",
           display: [],
           noRandom: false,
-          text: "S"
+          name: "S"
         },
         {
-          id: "o-2-KLAS",
+          specs_info_id: "o-2-KLAS",
           goto: "",
           display: [],
           noRandom: false,
-          text: "M"
+          name: "M"
         },
         {
-          id: "o-3-FGrJ",
+          specs_info_id: "o-3-FGrJ",
           goto: "",
           display: [],
           noRandom: false,
-          text: "L"
+          name: "L"
         }
       ],
       id: "q-02-size"
     },
     {
       type: "radio",
-      title: "款式",
+      name: "款式",
       description: "",
       required: true,
       goto: "",
@@ -86,41 +86,41 @@ module.exports = {
       random: false,
       maxRow: "1",
       refer: null,
-      options: [
+      specs_info: [
         {
-          id: "o-100-ABCD",
+          specs_info_id: "o-100-ABCD",
           goto: "",
           display: [],
           noRandom: false,
-          text: "短袖"
+          name: "短袖"
         },
         {
-          id: "o-101-EFGH",
+          specs_info_id: "o-101-EFGH",
           goto: "",
           display: [],
           noRandom: false,
-          text: "短裤"
+          name: "短裤"
         },
         {
-          id: "o-2-KLAS",
+          specs_info_id: "o-2-KLAS",
           goto: "",
           display: [],
           noRandom: false,
-          text: "长袖"
+          name: "长袖"
         },
         {
-          id: "o-3-FGrJ",
+          specs_info_id: "o-3-FGrJ",
           goto: "",
           display: [],
           noRandom: false,
-          text: "长裤"
+          name: "长裤"
         },
         {
-          id: "o-4-JtrA",
+          specs_info_id: "o-4-JtrA",
           goto: "",
           display: [],
           noRandom: false,
-          text: "长裙"
+          name: "长裙"
         }
       ],
       id: "q-03-style"

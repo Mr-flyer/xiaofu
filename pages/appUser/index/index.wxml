@@ -9,9 +9,11 @@
                 <image class="personal-info-bg" src="../../../static/images/personal/personal_bg.png" mode="aspectFill"/>
                 <view class="personal-info">
                     <view class="personal-content">
-                        <view class="type-gender"><text class="info-title">我是 新学生</text><image class="gender-icon" src="../../../static/images/personal/girl.png"/></view>
+                        <view class="type-gender">
+                          <text class="info-title">我是 {{new_student != 2 ? "新学生" : "在校生"}}</text>
+                          <image class="gender-icon" src="../../../static/images/personal/{{sex == 1 ? 'boy' : 'girl'}}.png"/></view>
                         <view class="info-item"><text class="item-name">所在学校</text><text>{{userInfo.school}}</text></view>
-                        <view class="info-item"><text class="item-name">入学时间</text><text>2020年9月</text></view>
+                        <view class="info-item"><text class="item-name">入学时间</text><text>{{schoolTime}}</text></view>
                         <view class="info-item"><text class="item-name">姓名</text><text>{{userInfo.nick_name}}</text></view>
                         <view class="info-item"><text class="item-name">班级</text><text>{{userInfo.student_class}}</text></view>
                         <view class="info-item"><text class="item-name">学号</text><text>{{userInfo.student_id}}号</text></view>

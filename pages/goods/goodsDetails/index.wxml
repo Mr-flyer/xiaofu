@@ -49,7 +49,7 @@
   </van-goods-action>
 
   <!-- 上拉窗 == 选择规格 -->
-  <van-action-sheet class="sheet_wrap" show="{{ showactionSheet }}" close-on-click-overlay title="选择规格" bind:close="hangActionSheetClose">
+  <van-action-sheet class="sheet_wrap" show="{{ showSKU }}" close-on-click-overlay title="选择规格" bind:close="hangActionSheetClose">
     <view class="inner">
       <view wx:for="{{specs_list}}" wx:key="index" class="type_item">
         <!-- 标题 -->

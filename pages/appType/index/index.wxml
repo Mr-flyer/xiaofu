@@ -12,7 +12,7 @@
         <view class='cu-bar solid-bottom bg-white'>
           <view class='action'>
             <text class='cuIcon-title text-green'></text>
-            Tab-{{item.name}}
+            {{item.name}}
           </view>
         </view>
         <view class="cu-list menu-avatar">

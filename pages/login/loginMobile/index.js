@@ -36,13 +36,13 @@ Page({
       }
     }
     // 是否最少发送过一次验证码
-    if(!smsid) {
-      return Notify({
-        message: "请先获取短信验证码",
-        type: "warning",
-      });
-    }
-    value.smsid = smsid
+    // if(!smsid) {
+    //   return Notify({
+    //     message: "请先获取短信验证码",
+    //     type: "warning",
+    //   });
+    // }
+    // value.smsid = smsid
     Toast.loading({ duration: 0, message: '提交中...' });
     // 手机验证码登录验证
     specialModel.pushStudentInfo(value)
@@ -57,9 +57,16 @@ Page({
     this.data.phone = detail.trim()
   },
   // 获取验证码
-  handGetCode(e) {
-    // console.log(e);
-    // return false
+  handGetCode({detail}) {
+    console.log(detail);
+    let { encryptedData, iv } = detail
+    if(encryptedData && iv) {
+      // specialModel.pushStudentInfo({encryptedData, iv})
+      // .then(res => {
+      //   console.log(res);
+      // })
+    }
+    return false
     let { phone } = this.data;
     if(!phone) {
       return Notify({

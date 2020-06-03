@@ -1,5 +1,5 @@
 // pages/goods/goodsDetails/index.js
-import { types } from "../../../static/mock/goodsTypes";
+import { specs_list } from "../../../static/mock/goodsTypes";
 import specialModel from '../../../models/special';
 Page({
   data: {
@@ -12,29 +12,29 @@ Page({
       // showPre: true, // 是否只展示返回键 默认 false
       // hideCapsule: true, // 是否隐藏胶囊
     },
-    swiperSeq: 1,
-    time: 30 * 60 * 60 * 1000,
-    showactionSheet: false,
-    radio: "1",
-    types
+    swiperSeq: 1,  // 
+    time: 30 * 60 * 60 * 1000, // 倒计时
+    showSKU: true, // SKU显隐
+    specs_list, // 默认商品规格数据
+    stepNum: 1, // 默认选择商品1数量
+    stock: 10, // 可选商品数量
+    name: '商品名称', // 商品名称
+    price: 10, // 商品价格
   },
   onLoad: function(options) {
     console.log(options);
     this.setData({ ...options })
-    specialModel.getGoodsDetail(options.goodsId)
-    .then(({data}) => {
-      console.log(data);
-      this.setData({...data})
-    })
+    // specialModel.getGoodsDetail(options.goodsId)
+    // .then(({data}) => {
+    //   console.log(data);
+    //   this.setData({...data})
+    // })
     // this.setData({
     //   "navbarData.navigationBarTitleText": "商品详情"
     // });
     
   },
-  // formSubmit(e) {
-  //   console.log(e);
-  // },
-  
+  // 前往订单页
   gotoOrder() {
     wx.navigateTo({
       url: `/pages/order/settleCenter/settleCenter`
@@ -46,12 +46,6 @@ Page({
     this.setData({
       swiperSeq: ++swiperSeq,
     })
-  },
-  // 计时器数值改变时
-  onChangeTimeDown(e) {
-    this.setData({
-      timeData: e.detail,
-    });
   },
   // 选择商品规格
   onChangeRadio(e) {
@@ -65,34 +59,42 @@ Page({
   },
   // 添加至购物车
   addShopCart() {
-    let targetArr = this.data.specs_list.map(v => v.val)
-    if(targetArr.every(v => v)) {
-      console.log("选择的商品规格：", targetArr);
-      wx.navigateTo({
-        url: `/pages/index/index?active=2`
-      })
-    }else if(!this.data.showactionSheet) {
-      this.setData({ showactionSheet: true })
+    let { goodsId, price, name } = this.data
+    let targetArr = this.data.specs_list.map(v => ({
+      id: v.val, name: v.name
+    }))
+    let goodObj = {
+      goodsId, price, name, tags: targetArr
     }
-    // let txtArr = this.data.specs_list.map(v => v.selectVal)
-    // console.log("选择的商品规格：", txtArr);
-
+    // if(targetArr.every(v => v)) {
+      console.log("选择的商品规格：", targetArr);
+      let shopCartData = wx.getStorageSync('shopCart')
+      if(shopCartData) {
+        
+      }else {
+        wx.setStorageSync('shopCart', [])
+      }
+      // wx.navigateTo({
+      //   url: `/pages/index/index?active=2`
+      // })
+    // }else if(!this.data.showSKU) {
+    //   this.setData({ showSKU: true })
+    // }
   },
   // 步进器值改变时
   onChangeStepper({detail}) {
-    // console.log(detail);
-    // this.setData({ stock: detail })
+    this.data.stock = detail;
   },
   // 显示上拉弹窗
   hangActionSheetShow() {
-    this.setData({ showactionSheet: true })
+    this.setData({ showSKU: true })
   },
   // 隐藏下拉弹窗
   hangActionSheetClose() {
     let selectTxt = this.data.specs_list.map(v => v.selectVal).join('、')
     console.log("选择的商品规格：", selectTxt);
     this.setData({ 
-      showactionSheet: false,
+      showSKU: false,
       selectTxt
     })
   }
