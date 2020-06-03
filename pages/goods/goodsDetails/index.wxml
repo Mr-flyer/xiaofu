@@ -29,8 +29,7 @@
       </view>
       <view class="goods_price">
         <view class="price_new">
-          ￥
-          <text>{{price}}</text>
+          ￥<text>{{price}}</text>
         </view>
         <!-- <view class="price_old">￥268.00-398.00</view> -->
         <view class="price_old">库存 {{stock}}</view>
@@ -43,7 +42,8 @@
   </view>
   <!-- 商品详情 -->
   <view class="section goods_details">
-    <rich-text class="">{{summary}} </rich-text>
+    <view class="page_title">商品详情</view>
+    <rich-text nodes="{{summary}}" class=""></rich-text>
   </view>
   <!-- 商品导航 -->
   <van-goods-action custom-class="goods_action">

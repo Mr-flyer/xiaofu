@@ -136,6 +136,56 @@ App({
       })
     } // 用户拒绝授权
   },
+  /**
+   * 订单支付 --- 结算中心页
+   * @param {Object} orderCode  {订单ID，订单编号}
+   * @param {object} targetData {支付成功页所需参数}
+   */
+  _paymentAppoint(orderCode, targetData, _that) {
+    specialModel.getPaymentYuyue(orderCode)
+      .then(res => new Promise((resolve, reject) => {
+        wx.requestPayment({ // 开始支付
+          ...res.results,
+          success: () => resolve(orderCode), // 传递{订单ID，订单编号} 为通知后台作参数
+          fail: err => reject(err),
+          complete() {}
+        })
+      }))
+      // 至此支付成功，并通知后台
+      .then(res => {
+        wx.navigateTo({
+          url: `/pages/form_results/form_results?other=${encodeURIComponent(JSON.stringify(targetData))}`
+        })
+        return specialModel.pushPaymentSuccess(res)
+      })
+      .then(() => {
+        _that.setData({ btnLoading: false })
+      }) // 后台接受通知成功
+      // 异常处理
+      .catch(err => {
+        let {
+          detail,
+          status,
+          errMsg,
+          msg
+        } = err, title
+        if (errMsg) { // 只针对微信支付接口异常
+          title = err.errMsg.includes('fail cancel') ? '您取消了支付！' : '支付失败！'
+        } else if (detail == "error" && status == '10030') { // 支付成功但 通知后台失败！
+          title = '订单成功通知发送失败!'
+        } else {
+          title = msg
+        }
+        _that.setData({
+          btnLoading: false
+        })
+        wx.showToast({
+          title,
+          icon: 'none',
+          duration: 2000
+        })
+      })
+  },
   globalData: {
     userInfo: null
   }

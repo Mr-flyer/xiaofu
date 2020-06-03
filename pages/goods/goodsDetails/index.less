@@ -2,11 +2,19 @@
 page {
   --goods-action-button-height: 100rpx;
   --goods-action-button-border-radius: 50rpx;
+  .container {
+    overflow-y: auto;
+    transform: none;
+  }
   .goods_action {
     background-color: transparent;
     padding-left: 40rpx;
     padding-right: 40rpx;
     margin-bottom: 20rpx;
+  }
+  .van-cell {
+    padding-left: 40rpx;
+    padding-right: 40rpx;
   }
 }
 .swiper_wrap {
@@ -60,22 +68,25 @@ page {
   background-color: #fff;
   .goods_title {
     color: #333;
+    line-height: 1;
     font-size: 34rpx;
     font-weight: bold;
     display: flex;
   }
   .goods_info {
-    padding: 30rpx 40rpx 40rpx;
+    padding: 36rpx 40rpx 36rpx;
   }
   .goods_price {
+    padding-top: 20rpx;
     line-height: 1;
-    font-size: 40rpx;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+
   } 
   .price_new {
     text {
+      font-size: 40rpx;
       font-weight: bold;
     }
   }
@@ -101,6 +112,20 @@ page {
   margin-top: 20rpx;
   background-color: #fff;
 }
+
+// 商品详情
+.goods_details {
+  padding: 0 40rpx 140rpx;
+  .page_title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    line-height: 1;
+    padding-top: 40rpx;
+    padding-bottom: 24rpx;
+  }
+}
+
 // 上拉窗
 .sheet_wrap {
   max-height: 80vh;

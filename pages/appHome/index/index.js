@@ -13,35 +13,18 @@ Component({
     tabsObj: { // tab项列表
       "article": {
         load: true, // 首次加载
-        page: 0, // 页码
+        page: 1, // 页码
         name: '春夏校服', // tab项标题
       },
       "project": {
         load: true,
-        page: 0,
+        page: 1,
         name: '秋冬校服',
       }
     },
     searchValue: '',    //搜索值
     scrollTop: 0,
     offsetTop: 0,
-    // tags: [
-    //   {
-    //     text: "标签1"
-    //   },
-    //   {
-    //     text: "标签2"
-    //   },
-    //   {
-    //     text: "标签3"
-    //   },
-    //   {
-    //     text: "标签3"
-    //   },
-    //   {
-    //     text: "标签3"
-    //   },
-    // ]
   },  
   attached: function() {
     // 初始化页面数据
@@ -82,7 +65,7 @@ Component({
     onPullDownRefresh() {
       let { active, tabsObj } = this.data
       // 只更新当前tab项中页码
-      tabsObj[active].page = 0
+      tabsObj[active].page = 1
       this.loadData(active, false)
     },
   
@@ -98,12 +81,12 @@ Component({
     loadData(viewType, showLoading) {
       var that = this
       let activeTab = this.data.tabsObj[viewType]
-      specialModel.getGoodsList({page: 1})
+      console.log("==========", activeTab);
+      specialModel.getGoodsList(activeTab.page)
       .then(({data}) => {
-        // console.log(data);
         activeTab.load = false
           var items = that.data.items
-          if(activeTab.page == 0) { // 如果是第一页则直接替换
+          if(activeTab.page == 1) { // 如果是第一页则直接替换
             items = data.items
             // wx.stopPullDownRefresh()
           } else { // 反之则往后拼接

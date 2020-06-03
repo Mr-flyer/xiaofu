@@ -1,3 +1,5 @@
+import Toast from '../../../miniprogram_npm/@vant/weapp/toast/toast';
+import specialModel from '../../../models/special';
 Page({
   data: {
     canUse: getApp().globalData.canUse,
@@ -12,19 +14,56 @@ Page({
   },
   onLoad: function () {
     console.log('订单页');
+    let page = getCurrentPages()
+    console.log("当前页面", page.pop());
+    console.log(page[page.length-1]);
+    let { targetArr, totalPrice } = page[page.length-1].data
+    console.log(targetArr);
+    this.setData({
+      targetArr, totalPrice
+    })
+  },
+  submitOrder() {
+    let { orderOther } = this.data;
+    if(!orderOther) {
+      return Toast.fail('请选择收货地址')
+    }
+    let selectArr = this.data.targetArr.map(v => ({
+      product_id: v.product_id,
+      product_count: v.count,
+      specs_list: v.specs_list,
+    }))
+    console.log('支付data', {
+      products: selectArr, ...orderOther
+    });
+    specialModel.setGoodsOrder({
+      products: selectArr, ...orderOther
+    }).then(res => {
+      console.log(res);
+    })
   },
   // 选择地址
   changeAddress() {
+    let that = this
     wx.chooseAddress({
       success(res) {
-        console.log(res.userName)
-        console.log(res.postalCode)
-        console.log(res.provinceName)
-        console.log(res.cityName)
-        console.log(res.countyName)
-        console.log(res.detailInfo)
-        console.log(res.nationalCode)
-        console.log(res.telNumber)
+        let orderOther = {
+          country: '中国',
+          province: res.provinceName,
+          city: res.cityName,
+          address: res.detailInfo,
+          national_code: res.nationalCode,
+          postal_code: res.postalCode,
+          // tel_number: res.telNumber
+          tel_number: "13637348894"
+        }
+        that.setData({
+          orderOther,
+          orderAddress: {
+            ...orderOther,
+            userName: res.userName
+          }
+        })
       },
       fail() {
         wx.getSetting({

@@ -2,8 +2,11 @@
   <view class="address-left">
       <image class="address-icon" src="../../static/images/order/address_icon.png"/>
       <view class="address-info">
-          <view class="address-user-info">张大力<text class="address-user-phone">13512345678</text></view>
-          <text class="address-text">江苏省南京市福润雅居翠竹园111栋江苏省南京市福润雅居翠竹园111栋</text>
+        <block wx:if="{{orderObj}}">
+          <view class="address-user-info">{{orderObj.userName}}<text class="address-user-phone">{{orderObj.tel_number}}</text></view>
+          <text class="address-text">{{orderObj.province}}{{orderObj.city}}{{orderObj.address}}</text>
+        </block>
+        <view wx:else>请选择地址</view>
       </view>
       <van-icon wx:if="{{isArrow}}" name="arrow" />
   </view>

@@ -49,7 +49,6 @@ Component({
       let targetArr = target.map(id => cartDataAll.find(v => v.id == id))
       if(targetArr[0]) {
         this.data.targetArr = targetArr
-        console.log('订单数组', targetArr);
       }
       // console.log("选中商品", targetArr);
       // 计算总价
@@ -64,9 +63,7 @@ Component({
     }
   },
   attached: function(){
-    // const taget = this.selectComponent(`#swipe-cell`);
-    // taget.open()
-    // 本地缓存购物车数据
+    // 读取本地缓存中购物车数据
     let shopCartData = wx.getStorageSync('shopCart')
     this.setData({ orderList: shopCartData })
   },
@@ -123,6 +120,10 @@ Component({
     // 立即支付 --- 页脚商品导航
     onSubmitOrder() {
       let { targetArr } = this.data
+      wx.navigateTo({
+        url: `/pages/order/settleCenter/settleCenter`
+      })
+      return false;
       if(!Array.isArray(targetArr)) {
         return Toast('最少选择一件商品')
       }else {

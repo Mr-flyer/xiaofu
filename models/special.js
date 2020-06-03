@@ -23,10 +23,10 @@ class SpecialModel extends HTTP {
     })
   }
   // 获取商品列表
-  getGoodsList(data) {
+  getGoodsList(page) {
     return this.request({
-      url: `api/v1/product/list`,
-      method: 'POST', data
+      url: `api/v1/product/list?page=${page}`,
+      method: 'POST'
     })
   }
   // 获取商品详情

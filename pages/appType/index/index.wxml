@@ -4,7 +4,7 @@
   <!-- <van-search placeholder="搜索学校名称" input-align="center" shape="round" readonly /> -->
   <view class="VerticalBox main">
     <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}">
-      <view class="cu-item {{index==TabCur?'text-green cur':''}}" wx:for="{{list}}" wx:key bind:tap='tabSelect' data-id="{{index}}">
+      <view class="cu-item ~van-ellipsis {{index==TabCur?'text-green cur':''}}" wx:for="{{list}}" wx:key bind:tap='tabSelect' data-id="{{index}}">
         {{item.name}}
       </view>
     </scroll-view>

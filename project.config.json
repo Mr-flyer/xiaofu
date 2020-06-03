@@ -124,7 +124,7 @@
 					"id": 9,
 					"name": "--- 商品详情 ---",
 					"pathName": "pages/goods/goodsDetails/index",
-					"query": "goodsId=1",
+					"query": "goodsId=12",
 					"scene": null
 				},
 				{
@@ -166,6 +166,7 @@
 					"id": -1,
 					"name": "商品搜索",
 					"pathName": "pages/goods/searchList/index",
+					"query": "",
 					"scene": null
 				}
 			]

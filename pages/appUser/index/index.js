@@ -6,22 +6,22 @@ Component({
   data: {
     orderStatusList: [{
       status: 1,
-      img: '../../../static/images/personal/pay_status_1.png',
+      img: '../../../static/images/personal/pay_status_1@2x.png',
       name: '待付款',
       num: 1
     }, {
       status: 2,
-      img: '../../../static/images/personal/pay_status_2.png',
+      img: '../../../static/images/personal/pay_status_2@2x.png',
       name: '待收货',
       num: 0
     }, {
       status: 3,
-      img: '../../../static/images/personal/pay_status_3.png',
+      img: '../../../static/images/personal/pay_status_3@2x.png',
       name: '已完成',
       num: 0
     }, {
       status: 4,
-      img: '../../../static/images/personal/pay_status_4.png',
+      img: '../../../static/images/personal/pay_status_4@2x.png',
       name: '换货中',
       num: 0
     }]
