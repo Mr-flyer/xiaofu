@@ -7,6 +7,7 @@
 		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
+		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
@@ -159,6 +160,12 @@
 					"name": "4.4 订单 -- 结算中心",
 					"pathName": "pages/order/settleCenter/settleCenter",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商品搜索",
+					"pathName": "pages/goods/searchList/index",
 					"scene": null
 				}
 			]

@@ -1,6 +1,6 @@
 // pages/appUser/index/index.js
 const http = require('../../../utils/httpdemo');
-let loadMoreView, page = 0;
+let loadMoreView, logisticspopup, page = 0;
 Page({
     data: {
         active: '0',
@@ -28,7 +28,9 @@ Page({
     },
     onShow() {
         // 获取列表底侧加载更多组件实例
-        loadMoreView = this.selectComponent("#loadMoreView")
+        loadMoreView = this.selectComponent("#loadMoreView");
+        // 物流信息组件实例
+        logisticspopup = this.selectComponent('#logisticspopup');
     },
     onLoad(options) {
         if(options){
@@ -97,6 +99,7 @@ Page({
     },
     // 打开物流弹框
     onOpenLogistics() {
+        logisticspopup.show();
         this.setData({
             showLogistics: true
         })

@@ -1,0 +1,96 @@
+page {
+  // 搜索框 -- 页面根组件一
+  van-search {
+    flex: none; 
+  }
+  // 主体内容 -- 页面根组件二
+  .container {
+    flex: 1;
+    overflow: hidden; // 防止子组件 scroll-view 设置height: 100%无效
+  }
+  .main {
+    height: 100%;
+    // background-color: aqua;
+    transform: translate(0, 0);
+    // margin-top: 40rpx;
+  }
+  .card_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20rpx 40rpx;
+    justify-content: space-between;
+    --font-weight-bold: bold;  // tab标记激活时字体加粗
+    --tag-font-size: 24rpx;   // tag标签字体
+  }
+  .tag_wrap {
+    margin-right: 16rpx;
+  }
+  .van-sticky { 
+    display: none; // 隐藏tab标签
+  }
+  
+}
+    .searchtags_wrap {
+      max-width: 300rpx;
+      overflow-x: auto;
+      white-space: nowrap;
+      van-tag {
+        margin-right: 10rpx;
+      }
+    }
+
+.card {
+  width:325rpx;
+  height:438rpx;
+  border-radius: 10rpx;
+  background-color: #fff;
+  // background-color: --red;
+  margin-bottom: 20rpx;
+  color: #333;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  .cd_hd {
+    flex: none;
+    height: 260rpx;
+    background-color: antiquewhite;
+  }
+  .cd_bd {
+    flex: 1;
+    padding: 24rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .goods_title {
+    font-size: 26rpx;
+    font-weight: bold;
+    line-height: 1;
+  }
+  .goods_other {
+    line-height: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .goods_price {
+    font-size: 20rpx;
+    flex: 1;
+    text {
+      font-size: 34rpx;
+      font-weight: bold;
+    }
+  }
+  .goods_add {
+    flex: none;
+    width: 40rpx;
+    height: 40rpx;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: bold;
+    background:linear-gradient(0deg,rgba(76,170,211,1),rgba(97,201,228,1));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

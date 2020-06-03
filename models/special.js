@@ -39,7 +39,7 @@ class SpecialModel extends HTTP {
   // 搜索商品
   getGoodsSearch(data) {
     return this.request({
-      url: `api/v1/school/list`,
+      url: `api/v1/product/school_keyword`,
       method: 'POST', data
     })
   }

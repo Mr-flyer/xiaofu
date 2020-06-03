@@ -1,7 +1,7 @@
 //index.js
 const http = require('../../../utils/httpdemo')
 import specialModel from '../../../models/special';
-let loadMoreView, page = 0
+let loadMoreView, searchView, page = 0
 Component({
   options: {
     styleIsolation: 'shared', // 取消组件样式隔离, shared == 组件、外部样式共享
@@ -22,6 +22,7 @@ Component({
         name: '秋冬校服',
       }
     },
+    searchValue: '',    //搜索值
     scrollTop: 0,
     offsetTop: 0,
     // tags: [
@@ -46,11 +47,13 @@ Component({
     // 初始化页面数据
     this.loadData('article', true)
     // 获取列表底侧加载更多组件实例
-    loadMoreView = this.selectComponent("#loadMoreView")
+    loadMoreView = this.selectComponent("#loadMoreView");
+    searchView = this.selectComponent("#searchView");
+    // searchView.show(this.data.searchValue);
   },
   methods: {
     gotoGoodsDetails(e) {
-      let { goodid } = e.currentTarget.dataset
+      let { goodid } = e.currentTarget.dataset;
       wx.navigateTo({
         url: `/pages/goods/goodsDetails/index?goodsId=${goodid}`
       })
@@ -148,6 +151,24 @@ Component({
     // 加载失败点击从新加载
     clickLoadMore(e) {
       this.loadData(this.data.active, false)
+    },
+    searchChange(e) {
+      this.setData({
+        searchValue: e.detail
+      })
+    },
+    // 搜索
+    searchEvent(val) {
+      if(this.data.searchValue) {
+        wx.navigateTo({
+          url: `/pages/goods/searchList/index?searchValue=${this.data.searchValue}`
+        })
+        this.setData({
+          searchValue: ''
+        })
+      }else {
+        wx.showToast({ title: '请输入学校名称', icon: 'none', duration: 2000 });
+      }
     },
     // tab项切换后触发
     onChange(e) {

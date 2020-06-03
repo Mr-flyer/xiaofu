@@ -18,6 +18,7 @@ class HTTP {
         // wx.
       }
       let accessToken = getToken('access_token');
+      // let accessToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTExNTA3NDgsIm5iZiI6MTU5MTE1MDc0OCwianRpIjoiYjYzMjg0NzEtM2Y5NC00OGUzLTg1Y2QtNzNlZDNkZjAyM2UzIiwiZXhwIjoxNTkxMTg2NzQ4LCJpZGVudGl0eSI6IlVzZXIjMSIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.DKOeQQDXp54_Leh9QIRY3mipgf3QYXNDGJgtHOfmp1M';
       // isLogin == 拉取token接口无需请求头
       let header = isLogin ? {} : {
         'Content-Type': 'application/json',

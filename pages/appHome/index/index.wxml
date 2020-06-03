@@ -1,13 +1,7 @@
 <!-- 首页 -->
 <pullDownRefresh class="container" refreshing="{{refreshing}}" refreshed="{{refreshed}}" bind:refresh="onPullDownRefresh">
   <scroll-view class="main" scroll-y enable-flex bindscrolltolower="onReachBottom" bind:scroll="onScroll">
-    <van-search placeholder="搜索学校名称" input-align="center" shape="round" readonly use-left-icon-slot>
-      <view slot="left-icon" class="searchtags_wrap">
-        <van-tag type="danger" wx:for="{{tags}}" wx:key="index">
-          {{item.text}}<van-icon name="cross" data-index="{{index}}" bind:click="handClose" />
-        </van-tag>
-      </view>
-    </van-search>
+    <search-goods id="searchView" searchValue="{{searchValue}}" bind:searchChange="searchChange" bind:searchEvent="searchEvent"></search-goods>
     <!-- tab切换项 -->
     <!-- <van-sticky scroll-top="{{ scrollTop }}" offset-top="{{ offsetTop }}">
       <van-button type="warning">嵌套在 scroll-view 内</van-button>
