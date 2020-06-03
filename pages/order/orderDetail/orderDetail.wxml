@@ -65,7 +65,7 @@
             </view>
         </view>
     </scroll-view>
-    <logistics-popup showLogistics="{{showLogistics}}" bind:myevent="onCloseLogistics"></logistics-popup>
+    <logistics-popup id="logisticspopup" showLogistics="{{showLogistics}}" bind:myevent="onCloseLogistics"></logistics-popup>
     <view class="order-btns">
         <text class="order-payment">实付：<text class="payment-price">￥236.00</text></text>
         <view bind:tap="exchangeGoods" class="normal-transparent-btn">换货</view>

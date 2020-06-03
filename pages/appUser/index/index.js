@@ -1,6 +1,7 @@
 // pages/appUser/index/index.js
 import specialModel from '../../../models/special';
 import dayjs from '../../../utils/dayjs';
+import util from '../../../utils/util';
 Component({
   data: {
     orderStatusList: [{
@@ -30,7 +31,7 @@ Component({
       data
     }) => {
       // 格式化入学日期
-      let schoolTime = dayjs(data.creat_time).format('YYYY年-MM月')
+      let schoolTime = data.admission_date ? dayjs(parseInt(data.admission_date)).format('YYYY年-MM月'):'';
       this.setData({
         schoolTime,
         userInfo: data
@@ -48,35 +49,16 @@ Component({
   methods: {
     // 选择地址
     changeAddress() {
-      wx.chooseAddress({
-        success(res) {
-          console.log(res.userName)
-          console.log(res.postalCode)
-          console.log(res.provinceName)
-          console.log(res.cityName)
-          console.log(res.countyName)
-          console.log(res.detailInfo)
-          console.log(res.nationalCode)
-          console.log(res.telNumber)
-        },
-        fail() {
-          wx.getSetting({
-            success(res) {
-              if (!res.authSetting['scope.address']) {
-                wx.showModal({
-                  title: '用户未授权',
-                  content: '拒绝授权将不能体验小程序完整功能，点击确定开启授权',
-                  success: (res) => {
-                    if (res.confirm) {
-                      wx.openSetting({})
-                    }
-                  }
-                })
-              }
-            }
-          })
-        }
-      })
+      util.getAddress(function(res) {
+        console.log(res.userName)
+        console.log(res.postalCode)
+        console.log(res.provinceName)
+        console.log(res.cityName)
+        console.log(res.countyName)
+        console.log(res.detailInfo)
+        console.log(res.nationalCode)
+        console.log(res.telNumber)
+      }) 
     },
     //  我的订单
     myOrder(e) {
@@ -93,7 +75,7 @@ Component({
     },
     editUserInfo() {
       wx.navigateTo({
-        url: `/pages/login/studentIdentity/index`
+        url: `/pages/login/studentIdentity/index?new_student=${this.data.userInfo.new_student}&isEdit=true`
       })
     }
   }

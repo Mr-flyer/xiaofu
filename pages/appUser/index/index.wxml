@@ -2,23 +2,23 @@
     <scroll-view class="main" scroll-y enable-flex>
         <view class="personal-main">
             <view class="personal-portrait">
-                <image class="portrait-img" src="../../../static/images/personal/default_portrait.png"/>
-                <view class="login-register"><text>登录/注册</text></view>
+                <image class="portrait-img" src="{{userInfo.avatar_url?userInfo.avatar_url:'../../../static/images/personal/default_portrait.png'}}"/>
+                <view class="login-register"><text>{{userInfo.nick_name}}</text></view>
             </view>
             <view class="personal-info-main">
                 <image class="personal-info-bg" src="../../../static/images/personal/personal_bg.png" mode="aspectFill"/>
                 <view class="personal-info">
                     <view class="personal-content">
                         <view class="type-gender">
-                          <text class="info-title">我是 {{new_student != 2 ? "新学生" : "在校生"}}</text>
-                          <image class="gender-icon" src="../../../static/images/personal/{{sex == 1 ? 'boy' : 'girl'}}.png"/></view>
-                        <view class="info-item"><text class="item-name">所在学校</text><text>{{userInfo.school}}</text></view>
-                        <view class="info-item"><text class="item-name">入学时间</text><text>{{schoolTime}}</text></view>
-                        <view class="info-item"><text class="item-name">姓名</text><text>{{userInfo.nick_name}}</text></view>
-                        <view class="info-item"><text class="item-name">班级</text><text>{{userInfo.student_class}}</text></view>
-                        <view class="info-item"><text class="item-name">学号</text><text>{{userInfo.student_id}}号</text></view>
+                          <text class="info-title">我是 {{userInfo.new_student != 2 ? "新学生" : "在校生"}}</text>
+                          <image class="gender-icon" src="../../../static/images/personal/{{userInfo.sex == 1 ? 'boy' : 'girl'}}.png"/></view>
+                        <view class="info-item"><text class="item-name">所在学校</text><text>{{userInfo.school?userInfo.school:'未填'}}</text></view>
+                        <view class="info-item"><text class="item-name">入学时间</text><text>{{schoolTime?schoolTime:'未填'}}</text></view>
+                        <view class="info-item"><text class="item-name">姓名</text><text>{{userInfo.user_name?userInfo.user_name:'未填'}}</text></view>
+                        <view class="info-item"><text class="item-name">班级</text><text>{{userInfo.student_class?userInfo.student_class:'未填'}}</text></view>
+                        <view class="info-item"><text class="item-name">学号</text><text>{{userInfo.student_id?userInfo.student_id:'未填'}}</text></view>
                     </view>
-                    <view class="personal-edit"><image class="edit-icon" src="../../../static/images/personal/edit.png" mode="aspectFill" bind:tap="editUserInfo"/>编辑</view>
+                    <view bind:tap="editUserInfo" class="personal-edit"><image class="edit-icon" src="../../../static/images/personal/edit.png" mode="aspectFill"/>编辑</view>
                 </view>
             </view>
         </view>

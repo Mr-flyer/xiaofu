@@ -82,14 +82,18 @@ class HTTP {
   // 获取token
   _getToken() {
     removeToken(); // 移除本地缓存中 token
-    return new Promise((success, fail) => wx.login({ success, fail }))
-    .then(({code}) => {  // 2. 通过微信接口获取 code
-      if(!code) return this._showError({errCode: 2})
-      return this.request({
-        url: `api/v1/user/get_token`,
-        data: { code }, method: "POST", isLogin: true 
-      })
+    return this.request({
+      url: `api/v1/user/get_token`,
+      data: { code: '123456' }, method: "POST", isLogin: true 
     })
+    // return new Promise((success, fail) => wx.login({ success, fail }))
+    // .then(({code}) => {  // 2. 通过微信接口获取 code
+    //   if(!code) return this._showError({errCode: 2})
+    //   return this.request({
+    //     url: `api/v1/user/get_token`,
+    //     data: { code }, method: "POST", isLogin: true 
+    //   })
+    // })
   }
   // 通过 refreshToken 静默更新 access_token
   _refreshToken(url, data, method, resolve) {

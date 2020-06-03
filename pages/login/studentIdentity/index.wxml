@@ -6,10 +6,10 @@
   </view>
   <view class="main">
     <view class="title">请选择您的注册身份</view>
-    <navigator class="idcard shadow-blur" url="/pages/login/userInfo/index?new_student=1">
+    <navigator class="idcard shadow-blur {{new_student==1?'choose-active':''}}" url="{{'/pages/login/userInfo/index?new_student=1&isEdit='+isEdit+''}}">
       <image src="/static/images/other/student_new.png" mode="aspectFill" />
     </navigator>
-    <navigator class="idcard shadow-blur" url="/pages/login/userInfo/index?new_student=2">
+    <navigator class="idcard shadow-blur {{new_student==2?'choose-active':''}}" url="{{'/pages/login/userInfo/index?new_student=2&isEdit='+isEdit+''}}">
       <image src="/static/images/other/student_old.png" mode="aspectFill" />
     </navigator>
     <view class="tips">请放心选择，以后还可以更改</view>

@@ -65,5 +65,5 @@
         </scroll-view>
     </pullDownRefresh>
     <!-- 填写物流信息弹框 -->
-    <logistics-popup showLogistics="{{showLogistics}}" bind:myevent="onCloseLogistics"></logistics-popup>
+    <logistics-popup id="logisticspopup" showLogistics="{{showLogistics}}" bind:myevent="onCloseLogistics"></logistics-popup>
 </view>

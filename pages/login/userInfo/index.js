@@ -44,12 +44,29 @@ Page({
     },
   },
   onLoad: function(option) {
+    let _that = this;
     // 获取用户选择的新、旧生并存入要提交的表单
-    Object.assign(this.data.frmData, option)
+    Object.assign(this.data.frmData, {new_student: option.new_student ? option.new_student : ''});
+    if(option.isEdit) {
+      specialModel.getStudentInfo().then(({
+        data
+      }) => {
+        _that.setData({
+          "frmData.sex": data.sex==0?'1':'2',
+          "frmData.school": data.school,
+          "frmData.admission_date": data.admission_date,
+          "frmData.student_class": data.student_class,
+          "frmData.user_name": data.user_name,
+          "frmData.student_id": data.student_id,
+          enrollmentTime: data.admission_date ? dayjs(parseInt(data.admission_date)).format('YYYY年-MM月-DD日'): ''
+        })
+      })
+    }
     // getApp().mta() // 小程序SDK 埋点
   },
   // 表单提交时
   frmSubmit() {
+    let _that = this;
     let { frmData } = this.data
     for (let [key, val] of Object.entries(frmData)) {
       if(!String(val).trim()) {
@@ -63,7 +80,10 @@ Page({
     specialModel.pushStudentInfo(frmData)
     .then(res => {
       wx.setStorageSync('need_user_info', false);
-      wx.redirectTo({
+      wx.showToast({
+        title: _that.isEdit ?'修改成功':'登记成功'
+      })
+      wx.reLaunch({
         url: `/pages/index/index`
       })
     })
@@ -101,4 +121,9 @@ Page({
       showTime: false,
     })
   },
+  gotoIndex() {
+    wx.reLaunch({
+      url: `/pages/index/index`
+    })
+  }
 })

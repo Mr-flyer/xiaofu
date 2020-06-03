@@ -18,11 +18,11 @@
     </van-radio-group>
   </view>
   <van-cell-group class="main">
-    <van-field data-name="school" placeholder="请填写您的大学" readonly="{{showTime}}" center border="{{false}}" bind:blur="handIptBlur"></van-field>
+    <van-field data-name="school" placeholder="请填写您的学校" readonly="{{showTime}}" value="{{frmData.school}}" center border="{{false}}" bind:blur="handIptBlur"></van-field>
     <van-field data-name="admission_date" placeholder="请选择您的入学时间" value="{{enrollmentTime}}" center readonly is-link border="{{false}}" bind:tap="handShowTimePicker"></van-field>
-    <van-field data-name="student_class" placeholder="请填写您所在班级" readonly="{{showTime}}" center border="{{false}}" bind:blur="handIptBlur"></van-field>
-    <van-field data-name="user_name" placeholder="请填写您的真实姓名" readonly="{{showTime}}" center border="{{false}}" bind:blur="handIptBlur"></van-field>
-    <van-field data-name="student_id" placeholder="请填写您的学号" readonly="{{showTime}}" type="number" center border="{{false}}" bind:blur="handIptBlur">
+    <van-field data-name="student_class" placeholder="请填写您所在班级" readonly="{{showTime}}" value="{{frmData.student_class}}" center border="{{false}}" bind:blur="handIptBlur"></van-field>
+    <van-field data-name="user_name" placeholder="请填写您的真实姓名" readonly="{{showTime}}" value="{{frmData.user_name}}" center border="{{false}}" bind:blur="handIptBlur"></van-field>
+    <van-field data-name="student_id" placeholder="请填写您的学号" readonly="{{showTime}}" value="{{frmData.student_id}}" type="number" center border="{{false}}" bind:blur="handIptBlur">
       <view slot="right-icon" class="ipt_right">号</view>
     </van-field>
   </van-cell-group>
