@@ -2,6 +2,7 @@
 import Notify from '../../../miniprogram_npm/@vant/weapp/notify/notify';
 import dayjs from '../../../utils/dayjs';
 import specialModel from '../../../models/special';
+import { saveTokens, getToken, removeToken } from '../../../utils/token';
 Page({
   data: {
     canUse: getApp().globalData.canUse,
@@ -61,6 +62,7 @@ Page({
     // console.log("校验通过", frmData);
     specialModel.pushStudentInfo(frmData)
     .then(res => {
+      wx.setStorageSync('need_user_info', false);
       wx.redirectTo({
         url: `/pages/index/index`
       })

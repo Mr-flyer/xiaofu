@@ -1,6 +1,7 @@
 <!-- pages/appType/index/index.wxml -->
 <view class="container">
-  <van-search placeholder="搜索学校名称" input-align="center" shape="round" readonly />
+  <search-goods id="searchView" searchValue="{{searchValue}}" bind:searchChange="searchChange" bind:searchEvent="searchEvent"></search-goods>
+  <!-- <van-search placeholder="搜索学校名称" input-align="center" shape="round" readonly /> -->
   <view class="VerticalBox main">
     <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}">
       <view class="cu-item {{index==TabCur?'text-green cur':''}}" wx:for="{{list}}" wx:key bind:tap='tabSelect' data-id="{{index}}">

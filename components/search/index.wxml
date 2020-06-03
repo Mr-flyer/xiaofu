@@ -1,0 +1,10 @@
+<view>
+  <van-search
+    value="{{ searchValue }}"
+    placeholder="搜索学校名称"
+    type="search"
+    focus="{{autoFocus}}"
+    bind:change="searchOnChange"
+    bind:search="onSearch"
+  />
+</view>

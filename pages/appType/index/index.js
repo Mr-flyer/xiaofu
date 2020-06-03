@@ -10,6 +10,7 @@ Component({
     VerticalNavTop: 0, // tab栏距顶距离
     list: [], // 商品数据列表
     load: true,
+    searchValue: '',    //搜索值
     goodsInfo: [
       {
         superChapterId: 494,
@@ -102,7 +103,25 @@ Component({
           return false
         }
       }
-    }
+    },
+    searchChange(e) {
+      this.setData({
+        searchValue: e.detail
+      })
+    },
+    // 搜索
+    searchEvent(val) {
+      if(this.data.searchValue) {
+        wx.navigateTo({
+          url: `/pages/goods/searchList/index?searchValue=${this.data.searchValue}`
+        })
+        this.setData({
+          searchValue: ''
+        })
+      }else {
+        wx.showToast({ title: '请输入学校名称', icon: 'none', duration: 2000 });
+      }
+    },
   }
   
 })

@@ -9,7 +9,8 @@ App({
     !getToken('access_token') && globalModel._getToken().then(res => {
       let { access_token, refresh_token } = res.data
       saveTokens(access_token, refresh_token);
-      wx.setStorageSync('isUpdata', res.data)
+      wx.setStorageSync('need_user_info', res.data.need_user_info);
+      wx.setStorageSync('isUpdata', res.data);
     })
 
     // 网站流量统计

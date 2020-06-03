@@ -1,4 +1,5 @@
 const http = require('../../../utils/httpdemo');
+let logisticspopup;
 Page({
   data: {
     canUse: getApp().globalData.canUse,
@@ -19,6 +20,8 @@ Page({
     setTimeoutNumber: ''
   },
   onShow() {
+    // 物流信息组件实例
+    logisticspopup = this.selectComponent('#logisticspopup');
     this.setData({
       leftTime: Date.parse(this.data.endTime) / 1000 - Date.parse(this.data.startTime) / 1000
     })
@@ -60,6 +63,7 @@ Page({
   },
   // 打开物流弹框
   onOpenLogistics() {
+    logisticspopup.show();
     this.setData({
       showLogistics: true
     })

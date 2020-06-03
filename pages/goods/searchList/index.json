@@ -1,3 +1,10 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "pullDownRefresh": "/components/pullDownRefresh/pullDownRefresh",
+    "van-search": "/miniprogram_npm/@vant/weapp/search/index",
+    "search-goods": "/components/search/index",
+    "basicCommodityCard": "/components/basicCommodityCard/index",
+    "empty": "/components/empty/index",
+    "load-more": "/components/loadMore/index"
+  }
 }

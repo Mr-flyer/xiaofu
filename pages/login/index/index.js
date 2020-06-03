@@ -1,6 +1,6 @@
 // pages/login/index/index.js
 // import moduleName from 'module';
-
+import { saveTokens, getToken, removeToken } from '../../../utils/token';
 Page({
   data: {
     canUse: getApp().globalData.canUse,
@@ -37,9 +37,15 @@ Page({
   },
   // 前往手机登录
   gotoLoginMobile() {
-    wx.navigateTo({
-      url: `/pages/login/loginMobile/index`
-    })
+    if(wx.getStorageSync('need_user_info')) {
+      wx.navigateTo({
+        url: `/pages/login/loginMobile/index`
+      })
+    }else {
+      wx.redirectTo({
+        url: "/pages/index/index"
+      })
+    }
   },
   // 微信登录
   loginWechat({detail}) {
