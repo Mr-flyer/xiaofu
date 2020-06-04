@@ -51,6 +51,7 @@ Page({
         data.forEach(el => {
           el.snap_items = JSON.parse(el.snap_items.replace(/'/gi,'"'))
           el.snap_address = JSON.parse(el.snap_address.replace(/'/gi,'"'))
+          el.orderStatus = this.data.orderStatus[el.order_status]
         });
         console.log(data);
         this.setData({
@@ -149,9 +150,10 @@ Page({
     })
   },
   // 订单详情页
-  orderDetailBtn() {
+  orderDetailBtn(e) {
+    let { orderid } = e.currentTarget.dataset
     wx.navigateTo({
-      url: `/pages/order/orderDetail/orderDetail?orderId=${1}`
+      url: `/pages/order/orderDetail/orderDetail?orderId=${orderid}`
     })
   },
   // 切换状态列表时滚动条回到顶部
@@ -159,5 +161,11 @@ Page({
     this.setData({
       topNum: 0
     })
-  }
+  },
+  // 立即支付
+  payment(e) {
+    let { orderid } = e.currentTarget.dataset
+    console.log(orderid);
+    specialModel.getPayment(orderid);
+  },
 })

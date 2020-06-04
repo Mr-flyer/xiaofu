@@ -18,6 +18,7 @@ Page({
     console.log("前一页data:", page[page.length-2].data);
     // 获取购物车页data
     let { targetArr, totalPrice } = page[page.length-2].data
+    console.log(targetArr, totalPrice);
     this.setData({
       targetArr, totalPrice
     })
@@ -38,7 +39,7 @@ Page({
     specialModel.setGoodsOrder({
       products: selectArr, ...orderOther
     }).then(res => {
-      console.log(res);
+      specialModel.getPayment(res.data.order_id)
       let orderList = wx.getStorageSync('shopCart')
       targetArr.forEach(val => {
 
@@ -58,6 +59,7 @@ Page({
   },
   // 选择地址
   changeAddress() {
+    console.log(111);
     let that = this
     wx.chooseAddress({
       success(res) {

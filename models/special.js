@@ -72,25 +72,63 @@ class SpecialModel extends HTTP {
     })
   }
   // 获取订单详情
-  getOrderDetails() {
+  getOrderDetails(orderId) {
     return this.request({
-      url: `api/v1/..`,
+      url: `api/v1/order/info/${orderId}`,
       method: 'POST',
     })
   }
-
-  // 获取微信支付API 所需参数
-  getOrderPaymentParameter(data) {
-    return this.request({
-      url: `api/v1/..`,
-      method: 'POST', data
+  // 支付
+  getPayment(order_id) {
+    let _that = this;
+    this.getConfig(order_id).then((data) => {
+      wx.requestPayment({
+        timeStamp: data.data.timestamp,
+        nonceStr: data.data.nonceStr,
+        package: data.data.package,
+        signType: data.data.signType,
+        paySign: data.data.paySign,
+        success: function(res) {
+          _that.getPaySuccess(order_id).then((data)=>{});
+            wx.redirectTo({
+              url: '/pages/order/paySuccess/paySuccess'
+            })
+        },
+        fail:function(err) {
+          if(err.errMsg === 'requestPayment:fail cancel') {
+            wx.showToast({ title: '您取消了支付', icon: 'none', duration: 2000 });
+          }else {
+            wx.redirectTo({
+              url: `/pages/order/payFail/payFail?order_id=${order_id}`
+            })
+          }
+        },
+        complete:function(res) {
+          console.log(res)
+        }
+      })
+    }).catch((err) => {
+      wx.showToast({ title: '订单异常或已完成支付', icon: 'none', duration: 2000 });
     })
   }
-  // 告知后台支付成功
-  pushPaymentSuccess(data) {
+  /**
+   * @method getConfig --获取微信支付配置
+   * @param {string|number} order_id --订单编号
+   */
+  getConfig(order_id) {
     return this.request({
-      url: `api/v1/..`,
-      method: 'POST', data
+      url: `api/v1/pay/jsapi/${order_id}`,
+      method: 'GET'
+    })
+  }
+  /**
+   * @method getPaySuccess --支付成功
+   * @param {string|number} order_id --订单编号
+   */
+  getPaySuccess(order_id) {
+    return this.request({
+      url: `api/v1/pay/result/${order_id}`,
+      method: 'GET'
     })
   }
 

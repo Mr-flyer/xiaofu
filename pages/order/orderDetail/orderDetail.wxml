@@ -4,24 +4,26 @@
   <scroll-view class="main" scroll-y enable-flex>
     <view class="order-detail-main">
       <view class="order-detail-status">
-        待发货
-        <text class="status-tips">剩余{{min}}分{{second}}秒系统将自动取消订单</text>
+        <!-- 待发货 -->
+        {{orderStatus[order_status] || ''}}
+        <!-- <text class="status-tips">剩余{{min}}分{{second}}秒系统将自动取消订单</text> -->
       </view>
-      <view class="order-detail-status-expire">已过期</view>
+      <!-- <view class="order-detail-status-expire">已过期</view> -->
+
       <view class="detail-main">
         <view class="order-detail-number-info white-radius-bg">
-          <view class="order-number">订单编号：40004043423448392</view>
-          <view class="order-logistics" bind:tap="logisticsInfo">
+          <view class="order-number">订单编号：{{order_no}}</view>
+          <view class="order-logistics">
             <view class="logistics-left">
               <image class="logistics-icon" src="../../../static/images/order/logistics_icon.png" />
               <view class="logistics-info">
-                <text class="logistics-text">订单已确认，等待厂家发货订单已确认，等待厂家发货订单已确认，等待厂家发货</text>
-                <text class="logistics-time">2020-05-21 15:20</text>
+                <text class="logistics-text">{{description}}</text>
+                <text class="logistics-time">{{update_time}}</text>
               </view>
             </view>
-            <van-icon name="arrow" />
+            <!-- <van-icon name="arrow" /> -->
           </view>
-          <view class="order-logistics" bind:tap="onOpenLogistics">
+          <!-- <view class="order-logistics" bind:tap="onOpenLogistics">
             <view class="logistics-left">
               <image class="logistics-icon" src="../../../static/images/order/no_logistics_icon.png" />
               <view class="logistics-info">
@@ -37,21 +39,21 @@
                 <text class="logistics-text-no">暂无订单信息</text>
               </view>
             </view>
-          </view>
-          <order-address></order-address>
+          </view> -->
+          <order-address goodsInfo="{{snap_address}}"></order-address>
         </view>
         <view class="order-goods-ul white-radius-bg">
-          <view class="order-goods-li" wx:for="{{2}}" wx:key="this">
+          <view class="order-goods-li">
             <view class="goods-school-info">
-              <image class="goods-school-icon" src="../../../static/images/order/school-icon.png" />
-              <text class="goods-school-text">南京师范大学附属中学</text>
+              <!-- <image class="goods-school-icon" src="../../../static/images/order/school-icon.png" />
+              <text class="goods-school-text">南京师范大学附属中学</text> -->
             </view>
             <view class="goods-li-main">
-              <view class="goods-li-item" wx:for="{{2}}" wx:key="this">
+              <view class="goods-li-item" wx:for="{{order_product}}" wx:key="index">
                 <view class="goods-li-item-main">
-                  <order-goods class="goods-components"></order-goods>
+                  <order-goods class="goods-components" goodsInfo="{{item}}"></order-goods>
                 </view>
-                <view class="exchange-goods-info">
+                <!-- <view class="exchange-goods-info">
                   <view class="exchange-goods-item">
                     <text class="exchange-goods-lable">换货详情</text>
                     <view>
@@ -71,7 +73,7 @@
                       <text class="address-text">江苏省南京市江苏省南京市江苏省南京市江</text>
                     </view>
                   </view>
-                </view>
+                </view> -->
               </view>
             </view>
           </view>
@@ -79,19 +81,7 @@
         <view class="order-detail-other white-radius-bg">
           <view class="other-item">
             <text>商品金额</text>
-            <text>￥1800.00</text>
-          </view>
-          <view class="other-item">
-            <text>优惠金额</text>
-            <text>￥1800.00</text>
-          </view>
-          <view class="other-item">
-            <text>运费</text>
-            <text>￥1800.00</text>
-          </view>
-          <view class="other-item">
-            <text>补运费</text>
-            <text>￥1800.00</text>
+            <text>￥{{total_price / 100}}</text>
           </view>
         </view>
       </view>
@@ -99,12 +89,11 @@
   </scroll-view>
   <logistics-popup id="logisticspopup" showLogistics="{{showLogistics}}" bind:myevent="onCloseLogistics"></logistics-popup>
   <view class="order-btns">
-    <text class="order-payment">
-      实付：
-      <text class="payment-price">￥236.00</text>
-    </text>
-    <view bind:tap="exchangeGoods" class="normal-transparent-btn">换货</view>
-    <view class="normal-btn" bind:tap="payment">立即支付</view>
+    <view class="order-payment">
+      实付：<text class="payment-price">￥{{total_price / 100}}</text>
+    </view>
+    <view class="normal-btn" wx:if="{{order_status == 1}}" bind:tap="payment">立即支付</view>
+    <!-- <view bind:tap="exchangeGoods" class="normal-transparent-btn">换货</view> -->
     <!-- <view bind:tap="exchangeGoods" class="normal-btn">重新下单</view> -->
   </view>
 </view>

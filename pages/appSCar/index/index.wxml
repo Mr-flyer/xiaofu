@@ -31,7 +31,7 @@
                   <view class="store_price">
                     <view class="store_unitprice van-ellipsis">
                       ￥
-                      <text>{{val.price}}</text>
+                      <text>{{val.price / 100}}</text>
                     </view>
                     <van-stepper class="num" data-index="{{index}}" data-idx="{{idx}}" value="{{ val.count }}" bind:change="onChangeStepper" />
                   </view>
@@ -48,7 +48,7 @@
   </view>
 
   <!-- 页脚提交订单栏 -->
-  <van-submit-bar custom-class="submit_bar" bar-class="bar_class ~shadow-blur" button-class="btn_class" price-class="price_class" price="{{ totalPrice*100 }}" button-text="提交订单" button-type="info" safe-area-inset-bottom="{{false}}" bind:submit="onSubmitOrder">
+  <van-submit-bar custom-class="submit_bar" bar-class="bar_class ~shadow-blur" button-class="btn_class" price-class="price_class" price="{{ totalPrice }}" button-text="提交订单" button-type="info" safe-area-inset-bottom="{{false}}" bind:submit="onSubmitOrder">
     <van-checkbox value="{{ checkedAll }}" bind:change="onChangeCheckAll">全选</van-checkbox>
   </van-submit-bar>
   <!-- 轻提示 -->

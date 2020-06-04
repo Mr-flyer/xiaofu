@@ -11,10 +11,16 @@ Page({
             // hideCapsule: true, // 是否隐藏胶囊
         },
     },
+    // 返回首页
+    backHome() {
+        wx.reLaunch({
+            url: `/pages/index/index`
+        })
+    },
     // 查看订单
     viewOrder() {
-        wx.navigateTo({
-            url: '../index/index'
+        wx.navigateBack({
+            delta: 1
         })
     }
 })

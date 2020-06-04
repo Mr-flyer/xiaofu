@@ -64,6 +64,8 @@ Component({
     }
   },
   attached: function(){
+    let shopCartData = wx.getStorageSync('shopCart')
+    this.setData({ orderList: shopCartData })
   },
   pageLifetimes: {
     // 组件所在页面的生命周期函数

@@ -5,7 +5,7 @@
         <image class="success-icon" src="../../../static/images/order/pay_success_icon.png"/>
         <view class="success-text">支付成功</view>
         <view class="success-btns">
-            <view class="large-transparent-btn suc-left-btn">返回首页</view
+            <view bind:tap="backHome" class="large-transparent-btn suc-left-btn">返回首页</view
             ><view bind:tap="viewOrder" class="large-transparent-btn">查看订单</view>
         </view>
     </view>

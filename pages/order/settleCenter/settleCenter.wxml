@@ -39,14 +39,14 @@
       <view class="order-detail-other white-radius-bg">
         <view class="other-item">
           <text>商品金额</text>
-          <text>￥{{totalPrice}}</text>
+          <text>￥{{totalPrice / 100}}</text>
         </view>
       </view>
     </view>
   </scroll-view>
   <view class="order-btns">
     <view class="order-payment">
-      实付：<text class="payment-price">￥{{totalPrice}}</text>
+      实付：<text class="payment-price">￥{{totalPrice / 100}}</text>
     </view>
     <view class="normal-btn" bind:tap="submitOrder">立即支付</view>
   </view>

@@ -10,7 +10,7 @@
         </view>
         <view class="success-btns">
             <view bind:tap="viewOrder" class="large-transparent-btn suc-left-btn">查看订单</view
-            ><view class="large-btn">重新支付</view>
+            ><view bind:tap="rePayment" class="large-btn">重新支付</view>
         </view>
     </view>
 </view>

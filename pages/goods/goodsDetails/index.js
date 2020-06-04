@@ -123,6 +123,7 @@ Page({
   // 隐藏下拉弹窗
   hangActionSheetClose() {
     let selectTxt = this.data.specs_list.map(v => v.selectVal).join('、')
+    console.log(selectTxt);
     this.setData({ 
       showSKU: false, selectTxt
     })

@@ -26,7 +26,12 @@ Component({
     lifetimes: {
       attached: function() {
         // 在组件实例进入页面节点树时执行
-        let tagsTxt = this.data.goodsInfo.specs_list.map(v => v.name).join('、')
+        let tagsTxt;
+        if(Array.isArray(this.data.goodsInfo.specs_list)) {
+          tagsTxt = this.data.goodsInfo.specs_list.map(v => v.name).join('、')
+        }else {
+          tagsTxt = this.data.goodsInfo.specs_list
+        }
         this.setData({ tagsTxt })
       },
       detached: function() {

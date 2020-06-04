@@ -29,7 +29,7 @@
       </view>
       <view class="goods_price">
         <view class="price_new">
-          ￥<text>{{price}}</text>
+          ￥<text>{{price / 100}}</text>
         </view>
         <!-- <view class="price_old">￥268.00-398.00</view> -->
         <view class="price_old">库存 {{stock}}</view>

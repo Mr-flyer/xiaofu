@@ -17,15 +17,29 @@ Page({
     startTime: '2020/05/30 13:30:30',
     endTime: '2020/05/30 13:31:45',
     leftTime: 0,
-    setTimeoutNumber: ''
+    setTimeoutNumber: '',
+    orderStatus: {
+      1:"待付款", 2:"待发货", 3:"待收货", 4:"已完成", 5:"退换中",
+    }
   },
   onLoad: function(options) {
     console.log("参数：", options);
     this.setData({ ...options })
-    // specialModel.getOrderDetails()
-    // .then(res => {
-    //   console.log(res);
-    // })
+    specialModel.getOrderDetails(options.orderId)
+    .then(({data}) => {
+      data.snap_address = JSON.parse(data.snap_address.replace(/'/gi,'"'))
+      data.order_product = data.order_product.map(el => ({
+        count: el.product_count,
+        id: el.order_id,
+        name: el.product_name,
+        price: el.product_price,
+        product_id: el.product_id,
+        image: el.product_banner,
+        specs_list: el.specs_list,
+      }));
+      console.log(data);
+      this.setData({...data})
+    })
   },
   onShow() {
     // 物流信息组件实例
@@ -33,7 +47,7 @@ Page({
     this.setData({
       leftTime: Date.parse(this.data.endTime) / 1000 - Date.parse(this.data.startTime) / 1000
     })
-    this.countTime();
+    // this.countTime();
   },
   // 倒计时
   countTime() {
@@ -99,5 +113,12 @@ Page({
   },
   onUnload() {
     clearTimeout(this.data.setTimeoutNumber);
-  }
+  },
+  // 支付
+  payment(e) {
+    // let { orderid } = e.currentTarget.dataset
+    let orderid = this.data.orderId
+    console.log(orderid);
+    specialModel.getPayment(orderid);
+  },
 })

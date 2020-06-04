@@ -6,6 +6,6 @@
         <view class="goods-info-text"><text>数量：{{goodsInfo.count}}</text>
         <!-- <van-tag color="rgba(47,155,202,1)">换货中</van-tag> -->
         </view>
-        <text class="goods-info-price">￥<text class="price">{{goodsInfo.price}}</text></text>
+        <text class="goods-info-price">￥<text class="price">{{goodsInfo.price / 100}}</text></text>
     </view>
 </view>
