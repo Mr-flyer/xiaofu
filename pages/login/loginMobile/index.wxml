@@ -8,11 +8,11 @@
   <view class="main">
     <form catchsubmit="formSubmit">
       <van-cell-group border="{{false}}">
-        <van-field name="phone" placeholder="请输入手机号" clearable use-button-slot>
-          <!-- <van-button slot="button" type="primary" open-type="getPhoneNumber" disabled="{{isBtnDisabled}}" size="small" bind:getphonenumber="handGetCode">
+        <!-- <van-field name="phone" placeholder="请输入手机号" clearable use-button-slot>
+          <van-button slot="button" type="primary" disabled="{{isBtnDisabled}}" size="small" open-type="getPhoneNumber"  bind:getphonenumber="handGetPhone">
             {{isBtnDisabled ? time + "秒后从新发送" : "获取手机号"}}
-          </van-button> -->
-        </van-field>
+          </van-button>
+        </van-field> -->
         <!-- <van-field name="phone" placeholder="请输入手机号" clearable bind:input="handSetPhone">
           <view slot="right-icon">+86</view>
         </van-field>
@@ -24,9 +24,9 @@
       </van-cell-group>
       <view class="btnlogin_wrap">
         <!-- 实际提交按钮 -->
-        <button id="simple_btn" form-type="submit" style="display: none">提交</button>
+        <!-- <button id="simple_btn" form-type="submit" style="display: none">提交</button> -->
         <label for="simple_btn">
-          <van-button type="info" size="large" round block>注册登录</van-button>
+          <van-button type="info" size="large" round block open-type="getPhoneNumber"  bind:getphonenumber="handGetPhone">获取手机号码注册</van-button>
         </label>
         <view class="tips">未注册用户登录后默认为注册用户</view>
       </view>

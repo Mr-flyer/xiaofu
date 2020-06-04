@@ -20,6 +20,11 @@ Page({
   },
   // 页面渲染后 执行
   onLoad: function() {
+    wx.login({
+      success: function(res) {
+        console.log(res);
+      }
+    })
     // Notify("通知内容");
     // console.log(specialModel); 
   },
@@ -56,17 +61,23 @@ Page({
   handSetPhone({detail}) {
     this.data.phone = detail.trim()
   },
-  // 获取验证码
-  handGetCode({detail}) {
-    console.log(detail);
+  // 微信解密手机号
+  handGetPhone({detail}) {
     let { encryptedData, iv } = detail
+    console.log(encryptedData, iv);
     if(encryptedData && iv) {
-      // specialModel.pushStudentInfo({encryptedData, iv})
-      // .then(res => {
-      //   console.log(res);
-      // })
+      new Promise((success, fail) => wx.login({ success, fail}))
+      .then(({code}) => specialModel.getPhoneEncode({encrypted_data: encryptedData, iv, code}))
+      .then(({data}) => {
+        // console.log(data);
+        wx.navigateTo({
+          url: '/pages/login/studentIdentity/index'
+        })
+      })
     }
-    return false
+  },
+  // 获取验证码
+  handGetCode() {
     let { phone } = this.data;
     if(!phone) {
       return Notify({

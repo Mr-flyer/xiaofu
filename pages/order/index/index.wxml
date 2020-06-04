@@ -1,69 +1,70 @@
 <!-- 顶部导航栏 -->
 <mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}"/>
 <view class="container">
-    <van-tabs nav-class="nav_class" active="{{ active }}" ellipsis="{{false}}" line-width="40" line-height="4" bind:tap="changeStatusList">
-        <block wx:for="{{tabsArr}}" wx:key="this">
-            <van-tab name="{{item.name}}" title="{{item.title}}">
-                
-            </van-tab>
-        </block>
-    </van-tabs>
-    <pullDownRefresh class="container" refreshing="{{refreshing}}" refreshed="{{refreshed}}" bind:refresh="onPullDownRefresh">
-        <scroll-view class="main" scroll-y scroll-top="{{topNum}}" enable-flex>
-            <view class="order-ul">
-                <view class="order-item" wx:for="{{4}}" wx:key="this">
-                    <view class="order-number-status">
-                        <text class="order-number">订单号：123456789</text><text class="order-status">待支付</text>
-                    </view>
-                    <view class="order-item-ul">
-                        <view bind:tap="orderDetailBtn">
-                            <view class="order-item-li" wx:for="{{3}}" wx:if="{{index==0}}" wx:key="this">
-                                <view class="order-img"><image class="goods_pic" src="../../../static/images/personal/default_portrait.png" mode="aspectFill"/></view>
-                                <view class="order-info">
-                                    <view class="order-school"><image class="school-icon" src="../../../static/images/order/school-icon.png" mode="aspectFill"/><text>南京师范大学附属中学南京师范大学附属中学南京师范大学附属中学南京师范大学附属中学</text></view>
-                                    <view class="order-type">春夏校服</view>
-                                    <view class="order-sku">尺寸款式：女生、M码、裙子</view>
-                                    <view class="order-price-num">
-                                        <view class="order-price"><text class="order-price-symbol">￥</text>218.00</view>
-                                        <view class="order-num">x1</view>
-                                    </view>
-                                </view>
-                            </view>
-                            <view class="{{select==1?'activeClass':'order-item-li-main'}}">
-                                <view class="order-item-li" wx:for="{{2}}" wx:key="this">
-                                    <view class="order-img"><image class="goods_pic" src="../../../static/images/personal/default_portrait.png" mode="aspectFill"/></view>
-                                    <view class="order-info">
-                                        <view class="order-school"><image class="school-icon" src="../../../static/images/order/school-icon.png" mode="aspectFill"/><text>南京师范大学附属中学南京师范大学附属中学南京师范大学附属中学南京师范大学附属中学</text></view>
-                                        <view class="order-type">春夏校服</view>
-                                        <view class="order-sku">尺寸款式：女生、M码、裙子</view>
-                                        <view class="order-price-num">
-                                            <view class="order-price"><text class="order-price-symbol">￥</text>218.00</view>
-                                            <view class="order-num">x1</view>
-                                        </view>
-                                    </view>
-                                </view>
-                            </view>
-                        </view>
-                        <view bind:tap="moreOpen" class="more-order">
-                            <image wx:if="{{select==0}}" class="more-icon" src="../../../static/images/order/open.png"/>
-                            <image wx:else class="more-icon" src="../../../static/images/order/shrink.png"/>
-                        </view>
-                    </view>
-                    <view class="order-price-info">
-                        <text class="order-extra">(运费￥18)</text
-                        ><text class="order-sum-price">订单金额：￥<text class="sum-price">228.00</text></text>
-                    </view>
-                    <view class="order-index-btns">
-                        <view bind:tap="onOpenLogistics" class="normal-transparent-btn">填写物流信息</view>
-                        <view bind:tap="viewLogistics" class="normal-gray-btn">查看物流</view>
-                        <!-- <view class="normal-btn">去付款</view> -->
-                    </view>
+  <van-tabs nav-class="nav_class" active="{{ active }}" ellipsis="{{false}}" line-width="40" line-height="4" bind:tap="changeStatusList">
+    <block wx:for="{{tabsArr}}" wx:key="this">
+      <van-tab name="{{item.name}}" title="{{item.title}}"></van-tab>
+    </block>
+  </van-tabs>
+  <pullDownRefresh class="container" refreshing="{{refreshing}}" refreshed="{{refreshed}}" bind:refresh="onPullDownRefresh">
+    <scroll-view class="main" scroll-y scroll-top="{{topNum}}" enable-flex>
+      <view class="order-ul">
+        <view class="order-item" wx:for="{{orderList}}" wx:key="this">
+          <view class="order-number-status">
+            <text class="order-number van-ellipsis">订单号：{{item.order_no}}</text><text class="order-status">待支付</text>
+          </view>
+          <view class="order-item-ul">
+            <view bind:tap="orderDetailBtn">
+              <!-- <view class="order-item-li" wx:for="{{3}}" wx:if="{{index==0}}" wx:key="this"> -->
+              <view class="order-item-li">
+                <view class="order-img"><image class="goods_pic" src="../../../static/images/personal/default_portrait.png" mode="aspectFill"/></view>
+                <view class="order-info">
+                  <view class="order-school"><image class="school-icon" src="../../../static/images/order/school-icon.png" mode="aspectFill"/><text>{{item.snap_items.product_name}}</text></view>
+                  <view class="order-type">{{item.snap_items.school_name}}</view>
+                  <view class="order-sku">尺寸款式：{{item.snap_items.specs_info}}</view>
+                  <view class="order-price-num">
+                      <view class="order-price"><text class="order-price-symbol">￥</text>{{item.snap_items.product_price}}</view>
+                      <view class="order-num">x1</view>
+                  </view>
                 </view>
+              </view>
+              <view class="{{select==1?'activeClass':'order-item-li-main'}}">
+                <view class="order-item-li" wx:for="{{2}}" wx:key="this">
+                  <view class="order-img"><image class="goods_pic" src="../../../static/images/personal/default_portrait.png" mode="aspectFill"/></view>
+                  <view class="order-info">
+                    <view class="order-school"><image class="school-icon" src="../../../static/images/order/school-icon.png" mode="aspectFill"/><text>南京师范大学附属中学南京师范大学附属中学南京师范大学附属中学南京师范大学附属中学</text></view>
+                    <view class="order-type">春夏校服</view>
+                    <view class="order-sku">尺寸款式：女生、M码、裙子</view>
+                    <view class="order-price-num">
+                      <view class="order-price"><text class="order-price-symbol">￥</text>218.00</view>
+                      <view class="order-num">x1</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
             </view>
-            <!-- 加载更多模块 -->
-            <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
-        </scroll-view>
-    </pullDownRefresh>
-    <!-- 填写物流信息弹框 -->
-    <logistics-popup id="logisticspopup" showLogistics="{{showLogistics}}" bind:myevent="onCloseLogistics"></logistics-popup>
+            <!-- <view bind:tap="moreOpen" class="more-order">
+              <image wx:if="{{select==0}}" class="more-icon" src="../../../static/images/order/open.png"/>
+              <image wx:else class="more-icon" src="../../../static/images/order/shrink.png"/>
+            </view> -->
+          </view>
+          <!-- 总价 -->
+          <view class="order-price-info">
+              <text class="order-extra">(商品数量 {{item.total_count}})</text
+              ><text class="order-sum-price">订单金额：￥<text class="sum-price">{{item.total_price}}</text></text>
+          </view>
+          <!-- 订单操作 -->
+          <view class="order-index-btns">
+              <view bind:tap="onOpenLogistics" class="normal-transparent-btn">填写物流信息</view>
+              <view bind:tap="viewLogistics" class="normal-gray-btn">查看物流</view>
+              <!-- <view class="normal-btn">去付款</view> -->
+          </view>
+        </view>
+      </view>
+      <!-- 加载更多模块 -->
+      <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
+    </scroll-view>
+  </pullDownRefresh>
+  <!-- 填写物流信息弹框 -->
+  <logistics-popup id="logisticspopup" showLogistics="{{showLogistics}}" bind:myevent="onCloseLogistics"></logistics-popup>
 </view>

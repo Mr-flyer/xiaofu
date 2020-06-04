@@ -1,8 +1,7 @@
 // pages/appSCar/index/index.js
 import { cartData } from '../../../static/mock/cartData';
 import Toast from '../../../miniprogram_npm/@vant/weapp/toast/toast';
-// import HTTP from '../../../utils/http';
-// let http = new HTTP()
+
 Component({
   options: {
     styleIsolation: 'shared', // 取消组件样式隔离, shared == 组件、外部样式共享
@@ -37,6 +36,7 @@ Component({
     checkedAll: false,//是否全选
     // selectArr: [], //已选择的商品  
   },
+  // 属性监听
   observers: {
     "orderList": function (field) {
       let { orderList } = this.data
@@ -44,18 +44,19 @@ Component({
       // 所有商品
       let cartDataAll = orderList.map(v => v.cartData).flat()
       // 选中商品id 数组
-      let target = orderList.map(v => v.result).flat()
+      let target = orderList.map(v => v.result || []).flat()
       // 选中商品详细信息 数组
       let targetArr = target.map(id => cartDataAll.find(v => v.id == id))
-      if(targetArr[0]) {
-        this.data.targetArr = targetArr
-      }
-      // console.log("选中商品", targetArr);
+      this.data.targetArr = targetArr
+      console.log("选中商品", targetArr);
       // 计算总价
       let totalPrice = 0
-      if(targetArr.every(v => v)) {
+      if(targetArr.some(v => v)) {
         totalPrice = targetArr.reduce((acc, cur) => acc + cur.price * cur.count, 0)
       }
+      this.triggerEvent('parentReceive', {
+        targetArr, totalPrice
+      }, {})
       this.setData({
         totalPrice,
         checkedAll: field.length && field.every(v => v.checkedGroup) // 全选
@@ -63,10 +64,18 @@ Component({
     }
   },
   attached: function(){
-    // 读取本地缓存中购物车数据
-    let shopCartData = wx.getStorageSync('shopCart')
-    this.setData({ orderList: shopCartData })
   },
+  pageLifetimes: {
+    // 组件所在页面的生命周期函数
+    show: function () { 
+      // 读取本地缓存中购物车数据
+      let shopCartData = wx.getStorageSync('shopCart')
+      this.setData({ orderList: shopCartData })
+    },
+    hide: function () { },
+    resize: function () { },
+  },
+
   methods: {
     // 店铺复选框
     onChangeGruop(e) {
@@ -120,31 +129,25 @@ Component({
     // 立即支付 --- 页脚商品导航
     onSubmitOrder() {
       let { targetArr } = this.data
-      wx.navigateTo({
-        url: `/pages/order/settleCenter/settleCenter`
-      })
-      return false;
+      // wx.navigateTo({
+      //   url: `/pages/order/settleCenter/settleCenter`
+      // })
+      // return false;
       if(!Array.isArray(targetArr)) {
         return Toast('最少选择一件商品')
       }else {
-        let selectArr = targetArr.map(v => ({
-          product_id: v.product_id,
-          count: v.count,
-          specs_list: v.specs_list,
-        }))
-        console.log('支付data', selectArr);
         wx.navigateTo({
           url: `/pages/order/settleCenter/settleCenter`
         })
       }
     },
-    // 删除商品导航
+    // 删除商品 --- 单个
     onCloseGoods(e) {
       let { instance } = e.detail  // 当前 van-swipe-cell实例 -- 组件参数
       let { id } = e.currentTarget.dataset // 当前 商品 唯一标识（区分与商品ID）
       let { orderList } = this.data // 购物车列表数据
       orderList.forEach((v, i) => {
-        if(v.cartData.length == 1) {
+        if(v.cartData.length == 1 && v.cartData.findIndex(v => v.id == id) >= 0) {
           orderList.splice(i, 1)
         }else {
           let idx = v.cartData.findIndex(v => v.id == id)
@@ -154,6 +157,7 @@ Component({
           instance.close()
         }
       })
+      wx.setStorageSync('shopCart', orderList)
       this.setData({ orderList })
     }
   }

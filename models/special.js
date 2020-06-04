@@ -8,6 +8,13 @@ class SpecialModel extends HTTP {
       method: 'POST', data
     })
   }
+  // 手机号解密
+  getPhoneEncode(data) {
+    return this.request({
+      url: `api/v1/user/user_phone`,
+      method: 'POST', data
+    })
+  }
   // 上传用户填写个人额外信息
   pushStudentInfo(data) {
     return this.request({
@@ -57,6 +64,37 @@ class SpecialModel extends HTTP {
       method: 'POST', data
     })
   }
+  // 获取订单列表
+  getOrderLists() {
+    return this.request({
+      url: `api/v1/order/list`,
+      // method: 'POST'
+    })
+  }
+  // 获取订单详情
+  getOrderDetails() {
+    return this.request({
+      url: `api/v1/..`,
+      method: 'POST',
+    })
+  }
+
+  // 获取微信支付API 所需参数
+  getOrderPaymentParameter(data) {
+    return this.request({
+      url: `api/v1/..`,
+      method: 'POST', data
+    })
+  }
+  // 告知后台支付成功
+  pushPaymentSuccess(data) {
+    return this.request({
+      url: `api/v1/..`,
+      method: 'POST', data
+    })
+  }
+
+
   /**
    * 测试接口
    * @param {*} data 

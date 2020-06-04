@@ -7,12 +7,15 @@ App({
   onLaunch: function (options) {
     // 无token 时拉取token
     !getToken('access_token') && globalModel._getToken().then(res => {
-      let { access_token, refresh_token } = res.data
+      let { access_token, refresh_token, need_user_info, need_wechat_user_info } = res.data
+      if(!need_user_info && !need_wechat_user_info) {
+        wx.redirectTo({
+          url: `/pages/login/index/index`
+        })
+      }
       saveTokens(access_token, refresh_token);
-      wx.setStorageSync('need_user_info', res.data.need_user_info);
       wx.setStorageSync('isUpdata', res.data);
     })
-
     // 网站流量统计
     mta.App.init({ 
       "appID":"500720942", 
@@ -139,36 +142,19 @@ App({
   /**
    * 订单支付 --- 结算中心页
    * @param {Object} orderCode  {订单ID，订单编号}
-   * @param {object} targetData {支付成功页所需参数}
    */
-  _paymentAppoint(orderCode, targetData, _that) {
-    specialModel.getPaymentYuyue(orderCode)
-      .then(res => new Promise((resolve, reject) => {
-        wx.requestPayment({ // 开始支付
-          ...res.results,
-          success: () => resolve(orderCode), // 传递{订单ID，订单编号} 为通知后台作参数
-          fail: err => reject(err),
-          complete() {}
-        })
-      }))
-      // 至此支付成功，并通知后台
-      .then(res => {
+  _orderPayment(orderCode, _that) {
+    specialModel.getOrderPaymentParameter(orderCode)
+      .then(res => new Promise((success, fail) => wx.requestPayment({ ...res.results, success, fail })))
+      .then(() => { // 支付成功
         wx.navigateTo({
-          url: `/pages/form_results/form_results?other=${encodeURIComponent(JSON.stringify(targetData))}`
+          url: `/pages/form_results/form_results`
         })
-        return specialModel.pushPaymentSuccess(res)
+        // 通知后台
+        return specialModel.pushPaymentSuccess(orderCode)
       })
-      .then(() => {
-        _that.setData({ btnLoading: false })
-      }) // 后台接受通知成功
-      // 异常处理
-      .catch(err => {
-        let {
-          detail,
-          status,
-          errMsg,
-          msg
-        } = err, title
+      .catch(err => { // 支付失败
+        let { detail, status, errMsg, msg } = err, title
         if (errMsg) { // 只针对微信支付接口异常
           title = err.errMsg.includes('fail cancel') ? '您取消了支付！' : '支付失败！'
         } else if (detail == "error" && status == '10030') { // 支付成功但 通知后台失败！
@@ -176,13 +162,8 @@ App({
         } else {
           title = msg
         }
-        _that.setData({
-          btnLoading: false
-        })
         wx.showToast({
-          title,
-          icon: 'none',
-          duration: 2000
+          title, icon: 'none', duration: 2000
         })
       })
   },

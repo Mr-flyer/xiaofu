@@ -135,10 +135,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 11,
 					"name": "4.1 订单 -- 详情",
 					"pathName": "pages/order/orderDetail/orderDetail",
-					"query": "",
+					"query": "orderId=1",
 					"scene": null
 				},
 				{
@@ -166,6 +166,27 @@
 					"id": -1,
 					"name": "商品搜索",
 					"pathName": "pages/goods/searchList/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 16,
+					"name": "4.5 订单 -- 换货申请",
+					"pathName": "pages/order/exchangeGoods/exchangeGoods",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 17,
+					"name": "4.6 订单 -- 支付成功",
+					"pathName": "pages/order/paySuccess/paySuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "4.7 订单 -- 支付失败",
+					"pathName": "pages/order/payFail/payFail",
 					"query": "",
 					"scene": null
 				}

@@ -79,12 +79,14 @@ Page({
     // console.log("校验通过", frmData);
     specialModel.pushStudentInfo(frmData)
     .then(res => {
-      wx.setStorageSync('need_user_info', false);
+      let isUpdata = wx.getStorageSync('isUpdata')
+      isUpdata.need_user_info = false
+      wx.setStorageSync('isUpdata', isUpdata);
       wx.showToast({
         title: _that.isEdit ?'修改成功':'登记成功'
       })
       wx.reLaunch({
-        url: `/pages/index/index`
+        url: `/pages/index/index?active=${_that.isEdit ? 0 : 3}`
       })
     })
   },

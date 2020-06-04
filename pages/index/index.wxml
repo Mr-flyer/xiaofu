@@ -5,7 +5,7 @@
 <view class="container">
   <app-home wx:if="{{active == 0}}"/>
   <app-type wx:if="{{active == 1}}"/>
-  <app-scar wx:if="{{active == 2}}"/>
+  <app-scar wx:if="{{active == 2}}" bind:parentReceive="parentCallBack"/>
   <app-user wx:if="{{active == 3}}"/>
 </view>
 <!-- 页脚 工具栏 -->

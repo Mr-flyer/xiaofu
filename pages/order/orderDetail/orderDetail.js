@@ -1,4 +1,4 @@
-const http = require('../../../utils/httpdemo');
+import specialModel from '../../../models/special';
 let logisticspopup;
 Page({
   data: {
@@ -18,6 +18,14 @@ Page({
     endTime: '2020/05/30 13:31:45',
     leftTime: 0,
     setTimeoutNumber: ''
+  },
+  onLoad: function(options) {
+    console.log("参数：", options);
+    this.setData({ ...options })
+    // specialModel.getOrderDetails()
+    // .then(res => {
+    //   console.log(res);
+    // })
   },
   onShow() {
     // 物流信息组件实例

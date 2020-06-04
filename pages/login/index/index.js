@@ -37,7 +37,7 @@ Page({
   },
   // 前往手机登录
   gotoLoginMobile() {
-    if(wx.getStorageSync('need_user_info')) {
+    if(wx.getStorageSync('isUpdata').need_user_info) {
       wx.navigateTo({
         url: `/pages/login/loginMobile/index`
       })

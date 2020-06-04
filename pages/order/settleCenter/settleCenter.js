@@ -13,22 +13,21 @@ Page({
     },
   },
   onLoad: function () {
-    console.log('订单页');
     let page = getCurrentPages()
-    console.log("当前页面", page.pop());
-    console.log(page[page.length-1]);
-    let { targetArr, totalPrice } = page[page.length-1].data
-    console.log(targetArr);
+    // console.log("当前页面", page.pop());
+    console.log("前一页data:", page[page.length-2].data);
+    // 获取购物车页data
+    let { targetArr, totalPrice } = page[page.length-2].data
     this.setData({
       targetArr, totalPrice
     })
   },
   submitOrder() {
-    let { orderOther } = this.data;
+    let { orderOther, targetArr } = this.data;
     if(!orderOther) {
       return Toast.fail('请选择收货地址')
     }
-    let selectArr = this.data.targetArr.map(v => ({
+    let selectArr = targetArr.map(v => ({
       product_id: v.product_id,
       product_count: v.count,
       specs_list: v.specs_list,
@@ -40,6 +39,21 @@ Page({
       products: selectArr, ...orderOther
     }).then(res => {
       console.log(res);
+      let orderList = wx.getStorageSync('shopCart')
+      targetArr.forEach(val => {
+
+        orderList.forEach((v, i) => {
+          if(v.cartData.length == 1 && v.cartData.findIndex(v => v.id == val.id) >= 0) {
+            orderList.splice(i, 1)
+          }else {
+            let idx = v.cartData.findIndex(v => v.id == val.id)
+            idx >= 0 && v.cartData.splice(idx, 1)
+            let index = v.result ? v.result.findIndex(v => v == id) : -1
+            index >= 0 && v.result.splice(index, 1)
+          }
+        })
+      })
+      wx.setStorageSync('shopCart', orderList)
     })
   },
   // 选择地址
@@ -47,6 +61,7 @@ Page({
     let that = this
     wx.chooseAddress({
       success(res) {
+        console.log(res);
         let orderOther = {
           country: '中国',
           province: res.provinceName,
@@ -54,6 +69,7 @@ Page({
           address: res.detailInfo,
           national_code: res.nationalCode,
           postal_code: res.postalCode,
+          user_name: res.userName,
           // tel_number: res.telNumber
           tel_number: "13637348894"
         }

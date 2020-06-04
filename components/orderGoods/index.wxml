@@ -1,5 +1,5 @@
 <view class="goods-li-goods-info">
-    <view><image class="goods-pic" src="../../static/images/personal/default_portrait.png"/></view>
+    <view><image class="goods-pic" src="{{goodsInfo.image}}"/></view>
     <view class="goods-info">
         <text class="goods-info-type">{{goodsInfo.name}}</text>
         <text class="goods-info-text">尺寸款式：{{tagsTxt}}</text>

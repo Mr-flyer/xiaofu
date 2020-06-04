@@ -14,6 +14,7 @@ Component({
           name: "商品名称",
           price: 30,
           product_id: "1",
+          image: "../../static/images/personal/default_portrait.png",
           specs_list:[
             {specs_info_id: "o-101-EFGH", name: "女生"},
             {specs_info_id: "o-101-EFGH", name: "S"},
