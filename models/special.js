@@ -82,6 +82,7 @@ class SpecialModel extends HTTP {
   getPayment(order_id) {
     let _that = this;
     this.getConfig(order_id).then((data) => {
+      wx.hideLoading()
       wx.requestPayment({
         timeStamp: data.data.timestamp,
         nonceStr: data.data.nonceStr,
@@ -108,6 +109,7 @@ class SpecialModel extends HTTP {
         }
       })
     }).catch((err) => {
+      wx.hideLoading()
       wx.showToast({ title: '订单异常或已完成支付', icon: 'none', duration: 2000 });
     })
   }

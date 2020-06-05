@@ -9,7 +9,7 @@ class globalModel extends HTTP {
     return this.request({
       url: `api/v1/user/user_info`,
       method: 'POST', data, 
-      useLocalToken: true // 使用 小程序APP缓存的Token
+      // useLocalToken: true // 使用 小程序APP缓存的Token
     })
   }
   // 向微信客户端拉取授权、用户信息 并上传至客户端 --- 自定义授权弹窗逻辑

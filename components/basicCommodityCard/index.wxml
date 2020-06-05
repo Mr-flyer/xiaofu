@@ -1,7 +1,7 @@
 <!-- components/shopCard/index.wxml -->
 <view class="goods_wrap custom-class">
   <view class="cd_hd goods-hd">
-    <image class="goods_pic" mode="aspectFill" src="{{goodsInfo.banner}}" />
+    <image class="goods_pic" mode="aspectFill" lazy-load src="{{goodsInfo.banner}}" />
   </view>
   <view class="cd_bd">
     <view class="goods_title ~van-ellipsis">{{goodsInfo.name}}</view>

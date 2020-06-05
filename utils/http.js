@@ -9,7 +9,7 @@ const tips = {
   2: '登录出错',
   3: '用户信息未上传'
 };
-const updateTokenCodeArr = [10040, 10050, 10000]
+const updateTokenCodeArr = [10020, 10040, 10050, 10000]
 class HTTP {
   request({url, data = {}, method = 'GET', isLogin = false, refreshToken = false}) {
     return new Promise((resolve, reject) => {

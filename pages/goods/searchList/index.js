@@ -1,5 +1,5 @@
-//index.js
-const http = require('../../../utils/httpdemo')
+// 搜索页
+import Toast from '../../../miniprogram_npm/@vant/weapp/toast/toast';
 import specialModel from '../../../models/special';
 let loadMoreView, searchView, page = 1;
 Page({
@@ -21,8 +21,9 @@ Page({
     refreshed: false, // true ==> 收起下拉刷新，可多次设置为true（即便原来已经是true了）
     searchValue: '',    //搜索值
     autoFocus: false,   //自动获取焦点
-  },  
+  },
   onLoad: function(options) {
+    Toast.loading('加载中...')
     if(options.searchValue) {
       this.setData({
         searchValue: options.searchValue
@@ -62,6 +63,7 @@ Page({
     var that = this
     specialModel.getGoodsSearch({q:this.data.searchValue, page: page})
     .then(({data}) => {
+      Toast.clear()
         var items = that.data
         if(page==1) { // 如果是第一页则直接替换
           items = data
@@ -74,6 +76,9 @@ Page({
         })
         loadMoreView.loadMoreComplete({curPage: data.page, pageCount: data.pages})
     }).catch(err => {
+      this.setData({
+        refreshed: true
+      })
       if(page!=1) {
         loadMoreView.loadMoreFail() 
       }

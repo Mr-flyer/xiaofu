@@ -29,6 +29,7 @@
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {
+    "empty": "/components/empty/index",
     "mg-navbar": "/components/navigationBar/index",
     "van-button": "/miniprogram_npm/@vant/weapp/button/index",
     "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",

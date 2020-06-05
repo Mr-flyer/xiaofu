@@ -23,7 +23,6 @@ Page({
     }
   },
   onLoad: function(options) {
-    console.log("参数：", options);
     this.setData({ ...options })
     specialModel.getOrderDetails(options.orderId)
     .then(({data}) => {
@@ -37,6 +36,7 @@ Page({
         image: el.product_banner,
         specs_list: el.specs_list,
       }));
+      data.snap_address.userName = data.snap_address.user_name
       console.log(data);
       this.setData({...data})
     })
@@ -116,6 +116,7 @@ Page({
   },
   // 支付
   payment(e) {
+    wx.showLoading({title: '拉取支付中...'})
     // let { orderid } = e.currentTarget.dataset
     let orderid = this.data.orderId
     console.log(orderid);

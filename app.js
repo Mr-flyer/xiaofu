@@ -1,20 +1,24 @@
 //app.js
-import mta from 'mta_wechat_sdk/mta_analysis';
-import globalModel from 'models/global';
+import mta from 'mta_wechat_sdk/mta_analysis'; // 站点流量统计
+import globalModel from 'models/global'; 
 import { saveTokens, getToken, removeToken } from 'utils/token';
+import Toast from './miniprogram_npm/@vant/weapp/toast/toast';
 App({
   // 小程序启动之后 触发
   onLaunch: function (options) {
-    // 无token 时拉取token
-    !getToken('access_token') && globalModel._getToken().then(res => {
+    Toast.setDefaultOptions({
+      type: "loading", duration: 0, forbidClick: true,
+    })
+    !wx.getStorageSync('isUpdata') && globalModel._getToken().then(res => {
       let { access_token, refresh_token, need_user_info, need_wechat_user_info } = res.data
-      if(!need_user_info && !need_wechat_user_info) {
+      saveTokens(access_token, refresh_token);
+      wx.setStorageSync('isUpdata', res.data);
+      // 未上传微信用户信息 且 未注册学生信息 前往登录页
+      if(need_user_info && need_wechat_user_info) {
         wx.redirectTo({
           url: `/pages/login/index/index`
         })
       }
-      saveTokens(access_token, refresh_token);
-      wx.setStorageSync('isUpdata', res.data);
     })
     // 网站流量统计
     mta.App.init({ 
@@ -110,20 +114,19 @@ App({
   // 确认 -- 获取用户信息并上传
   _getUserInfo({ userInfo }) {
     if (userInfo) {
+      Toast.loading('登录中...')
       const data = { // **** 上传参数根据实际情况而定 ****
         nick_name: userInfo.nickName,  // 微信昵称
         avatar_url: userInfo.avatarUrl, // 微信头像
       };
       // 本地存储 用户信息 备份
       wx.setStorageSync("userinfo", data);
+      // 上传用户信息
       globalModel.userUpdate(data)
       .then(res => {
+        Toast.clear();
         // 上传成功，关闭授权弹窗
         this.globalData.needUpdate = false;
-        // var page = getCurrentPages().pop(); //获取当前页面实例
-        // if (page == undefined || page == null) return; 
-        // page.onShow(); //调用实例的onLoad方法重新加载数据;
-        // page.onReady(); //调用实例的onLoad方法重新加载数据;
         wx.redirectTo({
           url: "/pages/index/index"
         })
@@ -132,11 +135,10 @@ App({
       wx.showToast({
         title: "您尚未授权，部分功能可能无法使用",
         icon: "none",
-        // duration: 2000
       });
-      wx.redirectTo({
-        url: "/pages/index/index"
-      })
+      // wx.redirectTo({
+      //   url: "/pages/index/index"
+      // })
     } // 用户拒绝授权
   },
   /**

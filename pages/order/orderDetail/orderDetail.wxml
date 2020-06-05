@@ -40,7 +40,7 @@
               </view>
             </view>
           </view> -->
-          <order-address goodsInfo="{{snap_address}}"></order-address>
+          <order-address orderObj="{{snap_address}}"></order-address>
         </view>
         <view class="order-goods-ul white-radius-bg">
           <view class="order-goods-li">

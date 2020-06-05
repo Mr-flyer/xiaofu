@@ -124,7 +124,7 @@
 					"id": 9,
 					"name": "--- 商品详情 ---",
 					"pathName": "pages/goods/goodsDetails/index",
-					"query": "goodsId=12",
+					"query": "goodsId=4",
 					"scene": null
 				},
 				{
@@ -138,7 +138,7 @@
 					"id": 11,
 					"name": "4.1 订单 -- 详情",
 					"pathName": "pages/order/orderDetail/orderDetail",
-					"query": "orderId=4",
+					"query": "orderId=20",
 					"scene": null
 				},
 				{

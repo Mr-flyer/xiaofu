@@ -19,8 +19,8 @@ Page({
     },
     // 查看订单
     viewOrder() {
-        wx.navigateBack({
-            delta: 1
-        })
+      wx.redirectTo({
+        url: `/pages/order/index/index`
+      })
     }
 })

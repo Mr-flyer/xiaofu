@@ -1,9 +1,9 @@
 // pages/appUser/index/index.js
 import specialModel from '../../../models/special';
-let loadMoreView, logisticspopup, page = 0;
+import Dialog from '../../../miniprogram_npm/@vant/weapp/dialog/dialog';
+let loadMoreView, logisticspopup
 Page({
   data: {
-    showLogistics: false,
     canUse: getApp().globalData.canUse,
     navbarData: {
       navigationBarTextStyle: 'black', // 胶囊主题 white || black
@@ -13,6 +13,8 @@ Page({
       // showPre: true, // 是否只展示返回键 默认 false
       // hideCapsule: true, // 是否隐藏胶囊
     },
+    
+    showLogistics: false,
     active: '0',
     tabsArr: [{
         "name": "0",
@@ -23,16 +25,16 @@ Page({
         "title": "待付款"
       },
       {
-        "name": "2",
+        "name": "3",
         "title": "待收货"
       },
       {
-        "name": "3",
+        "name": "4",
         "title": "已完成"
       },
       {
-        "name": "4",
-        "title": "换货中"
+        "name": "5",
+        "title": "退换中"
       }
     ],
     select: 0,
@@ -41,34 +43,40 @@ Page({
     refreshed: false, // true ==> 收起下拉刷新，可多次设置为true（即便原来已经是true了）
     orderStatus: {
       1:"待付款", 2:"待发货", 3:"待收货", 4:"已完成", 5:"退换中",
+    },
+    activeOrderList: [],
+    isRequest: false
+  },
+  onLoad(options) {
+    if (options.status) {
+      this.setData({
+        active: options.status || 0
+      })
     }
   },
   onShow() {
-    specialModel.getOrderLists()
+    if(this.data.active == 0) {
+      specialModel.getOrderLists()
       .then(({
         data
       }) => {
+        data = data || []
         data.forEach(el => {
           el.snap_items = JSON.parse(el.snap_items.replace(/'/gi,'"'))
           el.snap_address = JSON.parse(el.snap_address.replace(/'/gi,'"'))
           el.orderStatus = this.data.orderStatus[el.order_status]
         });
-        console.log(data);
         this.setData({
-          orderList: data
+          orderList: data,
+          activeOrderList: data,
+          isRequest: true
         })
       })
+    }
     // 获取列表底侧加载更多组件实例
     loadMoreView = this.selectComponent("#loadMoreView");
     // 物流信息组件实例
     logisticspopup = this.selectComponent('#logisticspopup');
-  },
-  onLoad(options) {
-    if (options) {
-      this.setData({
-        active: options.status
-      })
-    }
   },
   // 订单列表展开与收起
   moreOpen() {
@@ -97,6 +105,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    this.setData({
+      isRequest: false,
+      topNum: 0
+    })
+    this.requestData();
     // let { active, tabsObj } = this.data
     // // 只更新当前tab项中页码
     // tabsObj[active].page = 0
@@ -157,15 +170,63 @@ Page({
     })
   },
   // 切换状态列表时滚动条回到顶部
-  changeStatusList() {
+  changeStatusList(e) {
     this.setData({
-      topNum: 0
+      topNum: 0,
+      active: e.detail.index
     })
+    this.requestData();
+  },
+  requestData() {
+    let _that = this;
+    if(!this.data.isRequest) {
+      specialModel.getOrderLists()
+      .then(({
+        data
+      }) => {
+        data = data || []
+        data.forEach(el => {
+          el.snap_items = JSON.parse(el.snap_items.replace(/'/gi,'"'))
+          el.snap_address = JSON.parse(el.snap_address.replace(/'/gi,'"'))
+          el.orderStatus = this.data.orderStatus[el.order_status]
+        });
+        _that.setData({
+          orderList: data,
+          isRequest: true,
+          refreshed: true
+        })
+        _that.selectOrderList(this.data.active);
+      })
+    }else {
+      _that.selectOrderList(this.data.active);
+    }
+  },
+  // 根据订单状体筛选订单列表
+  selectOrderList(status) {
+    if(status == 0) {
+      this.setData({
+        activeOrderList: this.data.orderList
+      })
+    }else {
+      let tempOrderList = this.data.orderList.filter(item => item.order_status == status)
+      this.setData({
+        activeOrderList: tempOrderList
+      })
+    }
   },
   // 立即支付
   payment(e) {
+    wx.showLoading({title: '拉取支付中...'})
     let { orderid } = e.currentTarget.dataset
     console.log(orderid);
     specialModel.getPayment(orderid);
+  },
+  // 退货
+  handTuihuo() {
+    Dialog.alert({
+      title: '提示',
+      message: '已申请退货，请保持手机网络畅通，已便于客服与您联系',
+    })
+    // console.log(object);
   },
 })

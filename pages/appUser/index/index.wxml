@@ -3,9 +3,13 @@
     <view class="personal-main">
       <!-- 微信用户信息 -->
       <view class="personal-portrait">
-        <image class="portrait-img" src="{{userInfo.avatar_url?userInfo.avatar_url:'../../../static/images/personal/default_portrait.png'}}" />
+        <!-- <image class="portrait-img" src="{{userInfo.avatar_url?userInfo.avatar_url:'../../../static/images/personal/default_portrait.png'}}" /> -->
+        <view class="portrait-img">
+          <open-data type="userAvatarUrl" />
+        </view>
         <view class="login-register">
-          <text>{{userInfo.nick_name}}</text>
+          <!-- <text>{{userInfo.nick_name}}</text> -->
+          <open-data type="userNickName" />
         </view>
       </view>
       <!-- 学生信息卡片 -->
@@ -55,7 +59,7 @@
           <view class="order-status-item" bind:tap="myOrder" wx:for="{{orderStatusList}}" wx:key="this" data-status="{{item.status}}">
             <view class="order-status-img">
               <image class="status-icon" src="{{item.img}}" />
-              <view class="order-status-badge" wx:if="{{item.num > 0}}">{{item.num}}</view>
+              <!-- <view class="order-status-badge" wx:if="{{item.num > 0}}">{{item.num}}</view> -->
             </view>
             <text class="order-status-text">{{item.name}}</text>
           </view>

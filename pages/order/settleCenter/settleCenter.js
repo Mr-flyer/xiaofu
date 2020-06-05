@@ -28,6 +28,8 @@ Page({
     if(!orderOther) {
       return Toast.fail('请选择收货地址')
     }
+    Toast.loading('加载中')
+    // return false
     let selectArr = targetArr.map(v => ({
       product_id: v.product_id,
       product_count: v.count,
@@ -39,6 +41,7 @@ Page({
     specialModel.setGoodsOrder({
       products: selectArr, ...orderOther
     }).then(res => {
+      Toast.clear()
       specialModel.getPayment(res.data.order_id)
       let orderList = wx.getStorageSync('shopCart')
       targetArr.forEach(val => {

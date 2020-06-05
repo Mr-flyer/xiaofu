@@ -8,26 +8,26 @@ Component({
   },
   data: {
     orderList: [
-      {
-        schoolName: "南京师范大学附属中学",
-        result: [], checkedGroup: false,
-        cartData: cartData.slice(0, 2),
-      },
-      {
-        schoolName: "科技金融大厦",
-        result: [], checkedGroup: false,
-        cartData: cartData.slice(2, 3),
-      },
-      {
-        schoolName: "奥体中心",
-        result: [], checkedGroup: false,
-        cartData: cartData.slice(3, 4),
-      },
-      {
-        schoolName: "浦口",
-        result: [], checkedGroup: false,
-        cartData: cartData.slice(4, 5),
-      },
+      // {
+      //   schoolName: "南京师范大学附属中学",
+      //   result: [], checkedGroup: false,
+      //   cartData: cartData.slice(0, 2),
+      // },
+      // {
+      //   schoolName: "科技金融大厦",
+      //   result: [], checkedGroup: false,
+      //   cartData: cartData.slice(2, 3),
+      // },
+      // {
+      //   schoolName: "奥体中心",
+      //   result: [], checkedGroup: false,
+      //   cartData: cartData.slice(3, 4),
+      // },
+      // {
+      //   schoolName: "浦口",
+      //   result: [], checkedGroup: false,
+      //   cartData: cartData.slice(4, 5),
+      // },
     ],
     // cartData: cartData.slice(0, 2),
     // result: ['a', 'b']
@@ -131,12 +131,8 @@ Component({
     // 立即支付 --- 页脚商品导航
     onSubmitOrder() {
       let { targetArr } = this.data
-      // wx.navigateTo({
-      //   url: `/pages/order/settleCenter/settleCenter`
-      // })
-      // return false;
-      if(!Array.isArray(targetArr)) {
-        return Toast('最少选择一件商品')
+      if(!Array.isArray(targetArr) || !targetArr.length) {
+        Toast('最少选择一件商品');
       }else {
         wx.navigateTo({
           url: `/pages/order/settleCenter/settleCenter`

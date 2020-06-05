@@ -1,15 +1,18 @@
-<!-- 首页 -->
 <!-- 顶部导航栏 -->
 <mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}" />
 <view class="container">
   <search-goods id="searchView" searchValue="{{searchValue}}" bind:searchChange="searchChange" bind:searchEvent="searchEvent"></search-goods>
   <pullDownRefresh class="container" refreshing="{{refreshing}}" refreshed="{{refreshed}}" bind:refresh="onPullDownRefresh">
-    <scroll-view hidden="{{items.length <= 0}}" class="main" scroll-y enable-flex bindscrolltolower="onReachBottom">
+    <scroll-view hidden="{{ items.length <= 0}}" class="main" scroll-y enable-flex bindscrolltolower="onReachBottom">
       <view class="card_wrap">
         <basicCommodityCard wx:for="{{items}}" goods-info="{{item}}" data-goodid="{{item.id}}" bind:tap="gotoGoodsDetails"/>
       </view>
       <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
     </scroll-view>
-    <empty hidden="{{items.length > 0}}"></empty>
+    <view hidden="{{!refreshed || items.length > 0}}">
+      <empty emptyText="抱歉，没有找到商品~"></empty>
+    </view>
   </pullDownRefresh>
+  <!-- loading -->
+  <van-toast id="van-toast" />
 </view>

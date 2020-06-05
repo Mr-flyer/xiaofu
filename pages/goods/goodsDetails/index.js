@@ -26,10 +26,28 @@ Page({
   },
   onLoad: function(options) {
     this.setData({ ...options })
+    Toast.resetDefaultOptions()
     specialModel.getGoodsDetail(options.goodsId)
     .then(({data}) => {
-      console.log(data);
-      this.setData({...data})
+      console.log("商品详情", data);
+      let products = [
+        {
+          // count: this.data.count,
+          id: data.id,
+          image: data.banner,
+          name: data.name,
+          price: data.price,
+          product_id: data.id,
+          // specs_list: this.data.specs_list.map(v => ({
+          //   specs_info_id: v.specs_id,
+          //   name: v.selectVal,
+          // }))
+        }
+      ]
+      console.log(products);
+      this.setData({
+        ...data, targetArr: products
+      })
     })
     this.setData({
       "navbarData.navigationBarTitleText": "商品详情"
@@ -91,7 +109,8 @@ Page({
           }
         ])
       }
-      this.setData({ showSKU: false })
+      let selectTxt = this.data.specs_list.map(v => v.selectVal).join('、')
+      this.setData({ showSKU: false, selectTxt, shopCartDot: true })
       Toast.success('添加成功，请至购物车查看')
     } // 本地有缓存商品
     else if(!this.data.showSKU) {
@@ -112,13 +131,27 @@ Page({
   
   // 立即购买前往订单页 --- 页脚商品导航
   gotoOrder() {
-    wx.navigateTo({
-      url: `/pages/order/settleCenter/settleCenter`
+    this.setData({ isBuyNow: false })
+    let targetArr = this.data.specs_list.map(v => ({
+      specs_info_id: v.val, name: v.selectVal
+    }))
+    Object.assign(this.data.targetArr[0], {
+      count: this.data.count,
+      specs_list: targetArr,
     })
+    this.data.totalPrice = this.data.count * this.data.price
+    if(targetArr.every(v => v.specs_info_id)) {
+      wx.navigateTo({
+        url: `/pages/order/settleCenter/settleCenter`
+      })
+    } // 本地有缓存商品
+    else if(!this.data.showSKU) {
+      this.setData({ showSKU: true })
+    } 
   },
   // 显示上拉弹窗 --- 页脚商品导航
   hangActionSheetShow() {
-    this.setData({ showSKU: true })
+    this.setData({ showSKU: true, isBuyNow: true })
   },
   // 隐藏下拉弹窗
   hangActionSheetClose() {
@@ -126,6 +159,12 @@ Page({
     console.log(selectTxt);
     this.setData({ 
       showSKU: false, selectTxt
+    })
+  },
+  // 前往购物车
+  gotoShopCart() {
+    wx.redirectTo({
+      url: '/pages/index/index?active=2'
     })
   }
 })

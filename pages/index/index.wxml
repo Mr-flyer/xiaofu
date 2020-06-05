@@ -3,10 +3,10 @@
 <mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}"/>
 <!-- 主体内容区 -->
 <view class="container">
-  <app-home wx:if="{{active == 0}}"/>
-  <app-type wx:if="{{active == 1}}"/>
-  <app-scar wx:if="{{active == 2}}" bind:parentReceive="parentCallBack"/>
-  <app-user wx:if="{{active == 3}}"/>
+  <app-home wx:if="{{active === 0}}"/>
+  <app-type wx:if="{{active === 1}}"/>
+  <app-scar wx:if="{{active === 2}}" bind:parentReceive="parentCallBack"/>
+  <app-user wx:if="{{active === 3}}"/>
 </view>
 <!-- 页脚 工具栏 -->
 <van-tabbar custom-class="cu-bar tabbar bg-white shadow foot footerbar_wrap" active-color="rgba(47,155,202,1)" active="{{ active }}" bind:change="onChange">
@@ -20,7 +20,7 @@
     <image class="tabber_icon" slot="icon-active" src="/static/images/tabbar/type_cur@2x.png" />
     分类
   </van-tabbar-item>
-  <van-tabbar-item >
+  <van-tabbar-item info="{{num}}">
     <image class="tabber_icon" slot="icon" src="/static/images/tabbar/cart@2x.png" />
     <image class="tabber_icon" slot="icon-active" src="/static/images/tabbar/cart_cur@2x.png" />
     购物车
@@ -31,3 +31,5 @@
     我的
   </van-tabbar-item>
 </van-tabbar>
+<!-- loading -->
+<van-toast id="van-toast" />

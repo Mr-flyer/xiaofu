@@ -44,7 +44,7 @@
       </view>
     </block>
     
-    <empty wx:else></empty>
+    <empty wx:else emptyText="空空如也！"></empty>
   </view>
 
   <!-- 页脚提交订单栏 -->

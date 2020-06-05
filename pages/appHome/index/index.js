@@ -1,7 +1,7 @@
 //index.js
-const http = require('../../../utils/httpdemo')
 import specialModel from '../../../models/special';
-let loadMoreView, searchView, page = 0
+import Toast from '../../../miniprogram_npm/@vant/weapp/toast/toast';
+// Toast.loading()
 Component({
   options: {
     styleIsolation: 'shared', // 取消组件样式隔离, shared == 组件、外部样式共享
@@ -22,18 +22,18 @@ Component({
         name: '秋冬校服',
       }
     },
+    initPage: 1,
     searchValue: '',    //搜索值
-    scrollTop: 0,
-    offsetTop: 0,
   },  
-  attached: function() {
-    // 初始化页面数据
-    this.loadData('article', true)
-    // 获取列表底侧加载更多组件实例
-    loadMoreView = this.selectComponent("#loadMoreView");
-    searchView = this.selectComponent("#searchView");
-    // searchView.show(this.data.searchValue);
+  lifetimes: {
+    attached: function() {
+      // 初始化页面数据
+      this.loadData('article')
+      // 获取列表底侧加载更多组件实例
+      this.loadMoreView = this.selectComponent("#loadMoreView");
+    },
   },
+
   pageLifetimes: {
     show() {
       this.setData({
@@ -48,17 +48,6 @@ Component({
         url: `/pages/goods/goodsDetails/index?goodsId=${goodid}`
       })
     },
-    onScroll(event) {
-      wx.createSelectorQuery()
-        .select('#scroller')
-        .boundingClientRect((res) => {
-          this.setData({
-            scrollTop: event.detail.scrollTop,
-            // offsetTop: res.top,
-          });
-        })
-        .exec();
-    },
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
@@ -72,62 +61,36 @@ Component({
     /**
      * 页面上拉触底事件的组件内处理函数
      */
-    onReachBottom() { loadMoreView.loadMore() },
+    onReachBottom() { this.loadMoreView.loadMore() },
     /**
      * 请求新数据
      * @param {String} viewType tab项类型 
-     * @param {*} showLoading 
      */
-    loadData(viewType, showLoading) {
-      var that = this
+    loadData(viewType) {
+      let { initPage } = this.data
+      // 获取当前tab 相关参数
       let activeTab = this.data.tabsObj[viewType]
-      console.log("==========", activeTab);
       specialModel.getGoodsList(activeTab.page)
       .then(({data}) => {
+        Toast.clear()
         activeTab.load = false
-          var items = that.data.items
-          if(activeTab.page == 1) { // 如果是第一页则直接替换
+          var items = this.data.items
+          if(activeTab.page === initPage) { // 如果是第一页则直接替换
             items = data.items
             // wx.stopPullDownRefresh()
           } else { // 反之则往后拼接
             items = items.concat(data.items)
           }
-          that.setData({
+          this.setData({
             items: items, refreshed: true,
             active: viewType
           })
-          loadMoreView.loadMoreComplete({curPage: data.page, pageCount: data.pages})
+          this.loadMoreView.loadMoreComplete({curPage: data.page, pageCount: data.pages})
       }).catch(err => {
-        if(page!=0) {
-          loadMoreView.loadMoreFail() 
+        if(activeTab.page != initPage) {
+          this.loadMoreView.loadMoreFail() 
         }
       })
-      // http.get({
-      //   url: `/${viewType}/list/${page}/json`,
-      //   // showLoading,
-      //   showLoading: activeTab.page == 0 && activeTab.load, // 切换tab项后若为首次加载则展示loading
-      //   success: (res) => {
-      //     activeTab.load = false
-      //     var items = that.data.items
-      //     if(activeTab.page == 0) { // 如果是第一页则直接替换
-      //       items = res.datas
-      //       // wx.stopPullDownRefresh()
-      //     } else { // 反之则往后拼接
-      //       items = items.concat(res.datas)
-      //     }
-      //     that.setData({
-      //       items: items, refreshed: true,
-      //       active: viewType
-      //     })
-      //     console.log(res);
-      //     loadMoreView.loadMoreComplete(res)
-      //   },
-      //   fail: () => {
-      //     if(page!=0) {
-      //       loadMoreView.loadMoreFail() 
-      //     }
-      //   }
-      // })
     },
     /**
      * 页面上拉触底事件的实际处理函数 -- 由组件内部调用

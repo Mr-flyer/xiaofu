@@ -5,7 +5,7 @@
   <!-- 商品概要 -->
   <view class="header">
     <view class="swiper_wrap">
-      <swiper class="swiper_goods" bind:animationfinish="hangSwiperEnd">
+      <swiper class="swiper_goods" bind:change="hangSwiperEnd">
         <block wx:for="{{images}}" wx:key="*this">
           <swiper-item>
           <image src="{{item}}" mode="aspectFill"/>
@@ -43,15 +43,17 @@
   <!-- 商品详情 -->
   <view class="section goods_details">
     <view class="page_title">商品详情</view>
-    <rich-text nodes="{{summary}}" class=""></rich-text>
+    <rich-text nodes="{{summary}}" class="rich_txt"></rich-text>
   </view>
-  <!-- 商品导航 -->
-  <van-goods-action custom-class="goods_action">
+  <!-- 商品导航 custom-class="goods_action" -->
+  <van-goods-action custom-class="bg-white shadow">
+    <van-goods-action-icon icon="chat-o" text="客服" openType="contact" />
+    <van-goods-action-icon icon="cart-o" text="购物车" dot="{{shopCartDot}}" bind:click="gotoShopCart"/>
     <van-goods-action-button color="#3EA9C5" size="large" text="加入购物车" bind:tap="hangActionSheetShow"/>
     <van-goods-action-button color="#2F9BCA" size="large" text="立即购买" bind:click="gotoOrder" />
   </van-goods-action>
 
-  <!-- 上拉窗 == 选择规格 -->
+  <!-- 上拉窗 == SKU -->
   <van-action-sheet class="sheet_wrap" show="{{ showSKU }}" close-on-click-overlay title="选择规格" bind:close="hangActionSheetClose">
     <view class="inner">
       <view wx:for="{{specs_list}}" wx:key="index" class="type_item">
@@ -71,7 +73,8 @@
         <van-stepper value="{{ 1 }}" max="{{stock}}" bind:change="onChangeStepper" />
       </view>
       <view class="btncar_wrap">
-        <van-button size="large" type="info" round block bind:click="addShopCart">加入购物车</van-button>
+        <van-button wx:if="{{isBuyNow}}" size="large" type="info" round block bind:click="addShopCart">加入购物车</van-button>
+        <van-button wx:else size="large" type="info" round block bind:click="gotoOrder">立即购买</van-button>
       </view>
     </view>
   </van-action-sheet>

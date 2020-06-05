@@ -1,4 +1,5 @@
-//index.js
+// 首页
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 Page({
   data: {
     canUse: getApp().globalData.canUse,
@@ -14,12 +15,23 @@ Page({
     navTitle: ["校服预定", "分类", "购物车", "个人中心"]
   },
   onLoad: function(options) {
+    Toast.loading('加载中...')
+    options.active = Number(options.active) || 0
     this.setData({...options})
+    let shopCart = wx.getStorageSync('shopCart')
+    let num = Array.isArray(shopCart) ? shopCart.map(v => v.cartData).flat().length || null : null
+
+    this.setData({
+      num
+    })
   },
   parentCallBack ({detail}) {
-    console.log("父辈接受", detail)
+    // console.log("父辈接受", detail)
+    let shopCart = wx.getStorageSync('shopCart')
+    let num = Array.isArray(shopCart) ? shopCart.map(v => v.cartData).flat().length || null : null
+
     this.setData({
-      ...detail
+      ...detail, num
     })
   },
   onChange(event) {

@@ -1,15 +1,15 @@
 <!-- 顶部导航栏 -->
 <mg-navbar wx:if="{{canUse}}" navbarData="{{navbarData}}"/>
 <view class="container">
-  <van-tabs nav-class="nav_class" active="{{ active }}" ellipsis="{{false}}" line-width="40" line-height="4" bind:tap="changeStatusList">
+  <van-tabs nav-class="nav_class" active="{{ active }}" ellipsis="{{false}}" line-width="40" line-height="4" bind:change="changeStatusList">
     <block wx:for="{{tabsArr}}" wx:key="this">
       <van-tab name="{{item.name}}" title="{{item.title}}"></van-tab>
     </block>
   </van-tabs>
   <pullDownRefresh class="container" refreshing="{{refreshing}}" refreshed="{{refreshed}}" bind:refresh="onPullDownRefresh">
-    <scroll-view class="main" scroll-y scroll-top="{{topNum}}" enable-flex>
+    <scroll-view wx:if="{{activeOrderList.length > 0}}" class="main" scroll-y scroll-top="{{topNum}}" enable-flex>
       <view class="order-ul">
-        <view class="order-item" wx:for="{{orderList}}" wx:key="this">
+        <view class="order-item" wx:for="{{activeOrderList}}" wx:key="this">
           <view class="order-number-status">
             <text class="order-number van-ellipsis">订单号：{{item.order_no}}</text><text class="order-status">{{item.orderStatus}}</text>
           </view>
@@ -57,15 +57,20 @@
           <view class="order-index-btns">
               <!-- <view bind:tap="onOpenLogistics" class="normal-transparent-btn">填写物流信息</view>
               <view bind:tap="viewLogistics" class="normal-gray-btn">查看物流</view> -->
-              <view class="normal-btn" wx:if="{{item.order_status == 1}}" data-orderid="{{item.id}}" bind:tap="payment">去付款</view>
-              <view class="normal-transparent-btn" wx:else>查看详情</view>
+              <view wx:if="{{item.order_status == 1}}" class="normal-btn" data-orderid="{{item.id}}" bind:tap="payment">去付款</view>
+              <view wx:elif="{{item.order_status >= 2}}" class="normal-btn" data-orderid="{{item.id}}" bind:tap="handTuihuo">退货</view>
+              <navigator wx:else url="/pages/order/orderDetail/orderDetail?orderId={{item.id}}" class="normal-transparent-btn">查看详情</navigator>
           </view>
         </view>
       </view>
       <!-- 加载更多模块 -->
       <load-more id="loadMoreView" bindloadMoreListener='loadMoreListener' bindclickLoadMore='clickLoadMore'></load-more>
     </scroll-view>
+    <empty emptyText="抱歉，暂无订单" wx:else="{{activeOrderList.length <= 0}}"></empty>
   </pullDownRefresh>
   <!-- 填写物流信息弹框 -->
   <logistics-popup id="logisticspopup" showLogistics="{{showLogistics}}" bind:myevent="onCloseLogistics"></logistics-popup>
+
+  <!-- 消息提示窗 -->
+  <van-dialog id="van-dialog" />
 </view>
